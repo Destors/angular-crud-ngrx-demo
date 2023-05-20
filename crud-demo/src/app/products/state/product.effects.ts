@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
-import { ProductsActions } from './products.actions';
+import { ProductActions } from './product.actions';
 import { ProductApiService } from '../api/product-api.service';
 
 @Injectable()
-export class ProductsEffects {
-  loadProductss$ = createEffect(() => {
+export class ProductEffects {
+  loadProducts$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProductsActions.loadProductss),
+      ofType(ProductActions.loadProducts),
       concatMap(() =>
         this.productApiService.getAllProducts().pipe(
-          map((data) => ProductsActions.loadProductssSuccess({ data })),
+          map((data) => ProductActions.loadProductsSuccess({ data })),
           catchError((error) =>
-            of(ProductsActions.loadProductssFailure({ error }))
+            of(ProductActions.loadProductsFailure({ error }))
           )
         )
       )

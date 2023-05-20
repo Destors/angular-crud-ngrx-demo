@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import * as fromProducts from './products.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ProductsEffects } from './products.effects';
+import * as fromProduct from './product.reducer';
+import { ProductEffects } from './product.effects';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature(
-      fromProducts.productsFeatureKey,
-      fromProducts.reducer
-    ),
-    EffectsModule.forFeature([ProductsEffects]),
+    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.reducer),
+    EffectsModule.forFeature([ProductEffects]),
   ],
 })
 export class ProductsStateModule {}
