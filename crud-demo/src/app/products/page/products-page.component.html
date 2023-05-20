@@ -1,3 +1,13 @@
-<ng-container *ngFor="let product of pruducts$ | async">
-  <app-product-card [product]="product"></app-product-card>
-</ng-container>
+<div class="container">
+  <section>
+    <h1>Products</h1>
+    <div class="products">
+      <ng-container *ngFor="let product of pruducts$ | async">
+        <app-product-card
+          class="products--card"
+          [product]="product"
+        ></app-product-card>
+      </ng-container>
+    </div>
+  </section>
+</div>

@@ -9,7 +9,7 @@ import { Product } from '../common/product.interface';
 export class ProductApiService {
   constructor(private httpClient: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
+  getAllProducts(): Observable<Product[]> {
     const apiUrl = '/assets/data/products.json';
     return this.httpClient.get<Product[]>(apiUrl);
   }

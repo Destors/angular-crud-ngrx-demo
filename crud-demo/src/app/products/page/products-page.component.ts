@@ -12,7 +12,7 @@ export class ProductsPageComponent implements OnInit {
   pruducts$: Observable<Product[]>;
 
   constructor(private productApiService: ProductApiService) {
-    this.pruducts$ = this.productApiService.getProducts();
+    this.pruducts$ = this.productApiService.getAllProducts();
   }
 
   ngOnInit() {
