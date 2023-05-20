@@ -1,1 +1,3 @@
-<p>products-page works!</p>
+<ng-container *ngFor="let product of pruducts$ | async">
+  <app-product-card [product]="product"></app-product-card>
+</ng-container>

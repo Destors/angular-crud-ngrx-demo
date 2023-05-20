@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Product } from '../common/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +9,8 @@ import { Observable } from 'rxjs';
 export class ProductApiService {
   constructor(private httpClient: HttpClient) {}
 
-  load(): Observable<any> {
-    const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
-    return this.httpClient.get(apiUrl);
+  getProducts(): Observable<Product[]> {
+    const apiUrl = '/assets/data/products.json';
+    return this.httpClient.get<Product[]>(apiUrl);
   }
 }
