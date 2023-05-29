@@ -1,16 +1,30 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import * as fromProduct from './product.reducer';
+import { StoreModule } from '@ngrx/store';
+
 import { ProductEffects } from './product.effects';
+import { ProductFacade } from './product.facade';
+import { productFeatureKey, reducer } from './product.reducer';
+import { ProductApiModule } from '../api/product-api.module';
+
+export function metaServiceFactory(productFacade: ProductFacade): () => void {
+  return (): void => productFacade.load();
+}
 
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule,
-    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.reducer),
+    ProductApiModule,
+    StoreModule.forFeature(productFeatureKey, reducer),
     EffectsModule.forFeature([ProductEffects]),
+  ],
+  providers: [
+    ProductFacade,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: metaServiceFactory,
+      deps: [ProductFacade],
+      multi: true,
+    },
   ],
 })
 export class ProductsStateModule {}

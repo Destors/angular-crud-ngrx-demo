@@ -1,25 +1,60 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { ProductActions } from './product.actions';
+import { Action, createReducer, on } from '@ngrx/store';
+import { Product } from '../common/product.interface';
+import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 
-export const productFeatureKey = 'product';
+import * as ProductActions from './product.actions';
 
-export interface State {
+export const productFeatureKey = 'products';
 
+export interface ProductState extends EntityState<Product> {
+  selectedId: number | null;
+  loaded: boolean;
 }
 
-export const initialState: State = {
+export interface ProductPartialState {
+  readonly [productFeatureKey]: ProductState;
+}
 
-};
+export const productAdapter: EntityAdapter<Product> =
+  createEntityAdapter<Product>();
 
-export const reducer = createReducer(
-  initialState,
-  on(ProductActions.loadProducts, state => state),
-  on(ProductActions.loadProductsSuccess, (state, action) => state),
-  on(ProductActions.loadProductsFailure, (state, action) => state),
+export const productInitialState: ProductState = productAdapter.getInitialState(
+  {
+    selectedId: null,
+    loaded: false,
+  }
 );
 
-export const productFeature = createFeature({
-  name: productFeatureKey,
-  reducer,
-});
+const productReducer = createReducer(
+  productInitialState,
+  on(
+    ProductActions.restore,
+    (state, { products }): ProductState =>
+      productAdapter.upsertMany(products, {
+        ...state,
+        loaded: true,
+      })
+  ),
+  on(
+    ProductActions.loadSuccess,
+    (state, { products }): ProductState =>
+      productAdapter.setAll(products, {
+        ...state,
+        loaded: true,
+      })
+  ),
+  on(
+    ProductActions.loadFailure,
+    (state): ProductState => ({
+      ...state,
+      loaded: true,
+    })
+  )
+);
 
+export function reducer(
+  state: ProductState | undefined,
+  action: Action
+): ProductState {
+  return productReducer(state, action);
+}
