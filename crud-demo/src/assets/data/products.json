@@ -5,8 +5,13 @@
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   },
   {
-    "title": "Lorem wars",
-    "price": 500,
+    "title": "Soren Loren",
+    "price": 315,
+    "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
+  },
+  {
+    "title": "Nike Air Max",
+    "price": 700,
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   }
 ]

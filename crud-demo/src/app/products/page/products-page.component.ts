@@ -1,7 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from '../common/product.interface';
-import { ProductFacade } from '../state/product.facade';
 
 @Component({
   selector: 'app-products-page',
@@ -9,6 +6,4 @@ import { ProductFacade } from '../state/product.facade';
   styleUrls: ['./products-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsPageComponent {
-  
-}
+export class ProductsPageComponent {}
