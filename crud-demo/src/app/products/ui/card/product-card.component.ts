@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../../common/product.interface';
+import { ProductFacade } from '../../state/product.facade';
 
 @Component({
   selector: 'app-product-card',
@@ -8,5 +9,11 @@ import { Product } from '../../common/product.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
-  @Input() product: Product | undefined;
+  @Input() product!: Product;
+
+  constructor(private readonly productFacade: ProductFacade) {}
+
+  onRemove(product: Product) {
+    this.productFacade.removeProduct(product);
+  }
 }

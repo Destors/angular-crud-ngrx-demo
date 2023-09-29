@@ -15,8 +15,12 @@ export interface ProductPartialState {
   readonly [productFeatureKey]: ProductState;
 }
 
+export function selectCartProductId(product: Product): number {
+  return product.id;
+}
+
 export const productAdapter: EntityAdapter<Product> =
-  createEntityAdapter<Product>();
+  createEntityAdapter<Product>({ selectId: selectCartProductId });
 
 export const productInitialState: ProductState = productAdapter.getInitialState(
   {
@@ -49,6 +53,9 @@ const productReducer = createReducer(
       ...state,
       loaded: true,
     })
+  ),
+  on(ProductActions.removeProductSuccess, (state, { product }) =>
+    productAdapter.removeOne(selectCartProductId(product), state)
   )
 );
 

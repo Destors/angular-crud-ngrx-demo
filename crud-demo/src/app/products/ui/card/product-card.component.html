@@ -1,13 +1,13 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ product?.title }}</mat-card-title>
-    <mat-card-subtitle>{{ product?.price }}$</mat-card-subtitle>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+    <mat-card-subtitle>{{ product.price }}$</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
-      {{ product?.desctiption }}
+      {{ product.desctiption }}
     </p>
-    <button mat-icon-button color="primary">
+    <button mat-icon-button color="primary" (click)="onRemove(product)">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-content>

@@ -5,6 +5,7 @@ import * as ProductActions from './product.actions';
 import * as ProductSelectors from './product.selectors';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
+import { Product } from '../common/product.interface';
 
 @Injectable()
 export class ProductFacade {
@@ -36,5 +37,9 @@ export class ProductFacade {
 
   load(): void {
     this.store.dispatch(ProductActions.load());
+  }
+
+  removeProduct(product: Product) {
+    this.store.dispatch(ProductActions.removeProduct({ product }));
   }
 }

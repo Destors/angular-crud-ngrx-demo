@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ProductApiService } from '../api/product-api.service';
 
 import * as ProductActions from './product.actions';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 
 @Injectable()
 export class ProductEffects {
@@ -33,9 +33,22 @@ export class ProductEffects {
     );
   });
 
+  removeProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.removeProduct),
+      switchMap((product) =>
+        this.productApiService.removeProduct({ product }).pipe(
+          map(() => ProductActions.removeProductSuccess(product)),
+          catchError((error) => of(ProductActions.removeProductFailure(error)))
+        )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
-    private productApiService: ProductApiService
+    private productApiService: ProductApiService,
+    private readonly store: Store
   ) {}
 
   ngrxOnInitEffects(): Action {
