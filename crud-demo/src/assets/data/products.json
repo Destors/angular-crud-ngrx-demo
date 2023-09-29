@@ -1,17 +1,20 @@
 [
   {
-    "title": "Jersy slick",
-    "price": 500,
+    "title": "Apple Iphone 15 pro max",
+    "price": 2500,
+    "type": "divice",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   },
   {
-    "title": "Soren Loren",
-    "price": 315,
+    "title": "Hobbit: Unexpected Journey",
+    "price": 800,
+    "type": "book",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   },
   {
     "title": "Nike Air Max",
     "price": 700,
+    "type": "shoes",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   }
 ]

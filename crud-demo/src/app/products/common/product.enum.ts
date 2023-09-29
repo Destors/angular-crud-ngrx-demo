@@ -1,5 +1,5 @@
 export enum ProductType {
-  device,
-  book,
-  shoes,
+  device = 'device',
+  book = 'book',
+  shoes = 'shoes',
 }
