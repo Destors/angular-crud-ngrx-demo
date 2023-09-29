@@ -1,0 +1,6 @@
+<div *ngIf="products$ | async as products" class="products">
+  <ng-container *ngFor="let product of products; trackBy: trackByFn">
+    <app-product-card class="products--card" [product]="product">
+    </app-product-card>
+  </ng-container>
+</div>

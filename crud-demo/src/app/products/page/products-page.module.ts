@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ProductsPageRoutingModule } from './products-page-routing.module';
 import { ProductsPageComponent } from './products-page.component';
 import { ProductApiModule } from '../api/product-api.module';
-import { ProductCardModule } from '../ui/card/product-card.module';
 import { ProductsStateModule } from '../state/products-state.module';
+import { ProductListModule } from '../ui/list/product-list/product-list.module';
 
 @NgModule({
   declarations: [ProductsPageComponent],
@@ -13,7 +13,7 @@ import { ProductsStateModule } from '../state/products-state.module';
     CommonModule,
     ProductsPageRoutingModule,
     ProductApiModule,
-    ProductCardModule,
+    ProductListModule,
     ProductsStateModule,
   ],
 })
