@@ -16,4 +16,8 @@ export class ProductCardComponent {
   onRemove(product: Product) {
     this.productFacade.removeProduct(product);
   }
+
+  onEdit(): void {
+    
+  }
 }
