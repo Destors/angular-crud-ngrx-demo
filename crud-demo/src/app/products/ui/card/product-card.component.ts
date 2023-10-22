@@ -3,6 +3,8 @@ import { Product } from '../../common/product.interface';
 import { ProductFacade } from '../../state/product.facade';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../dialogs/edit/edit-dialog.component';
+import { AddProductDialogComponent } from '../dialogs/add/add-product-dialog.component';
+import { DeleteProductDialogComponent } from '../dialogs/delete/delete-product-dialog.component';
 
 @Component({
   selector: 'app-product-card',
@@ -13,18 +15,21 @@ import { EditDialogComponent } from '../dialogs/edit/edit-dialog.component';
 export class ProductCardComponent {
   @Input() product!: Product;
 
-  constructor(
-    private readonly productFacade: ProductFacade,
-    public dialog: MatDialog
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   onRemove(product: Product) {
-    this.productFacade.removeProduct(product);
+    this.dialog.open(DeleteProductDialogComponent, {
+      data: product,
+    });
   }
 
   onEdit(product: Product): void {
     this.dialog.open(EditDialogComponent, {
       data: product,
     });
+  }
+
+  onAdd(): void {
+    this.dialog.open(AddProductDialogComponent);
   }
 }
