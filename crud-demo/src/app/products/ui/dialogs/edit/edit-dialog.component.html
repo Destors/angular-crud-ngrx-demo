@@ -1,7 +1,21 @@
 <h1 mat-dialog-title>Edit product</h1>
 <div mat-dialog-content>
-  Edit <b>{{ data.title }} </b>in store
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+  <p>
+    {{ mode | titlecase }} <b>{{ data.product.title }} </b>in store
+  </p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let fieldItem of productFields">
+      <mat-form-field class="w-100">
+        <input
+          matInput
+          [placeholder]="fieldItem | titlecase"
+          [formControlName]="fieldItem"
+        />
+      </mat-form-field>
+    </ng-container>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+      <button mat-raised-button type="submit">Submit</button>
+    </div>
+  </form>
 </div>

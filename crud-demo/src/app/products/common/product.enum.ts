@@ -3,3 +3,15 @@ export enum ProductType {
   book = 'book',
   shoes = 'shoes',
 }
+
+export enum ProductFields {
+  Title = 'title',
+  Price = 'price',
+  Desctiption = 'desctiption',
+  Type = 'type',
+}
+
+export enum ProductDialogMode {
+  Create = 'create',
+  Update = 'update',
+}

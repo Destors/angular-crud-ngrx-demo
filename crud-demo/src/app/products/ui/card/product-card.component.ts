@@ -1,10 +1,9 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../../common/product.interface';
-import { ProductFacade } from '../../state/product.facade';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../dialogs/edit/edit-dialog.component';
-import { AddProductDialogComponent } from '../dialogs/add/add-product-dialog.component';
 import { DeleteProductDialogComponent } from '../dialogs/delete/delete-product-dialog.component';
+import { ProductDialogMode } from '../../common/product.enum';
 
 @Component({
   selector: 'app-product-card',
@@ -25,11 +24,18 @@ export class ProductCardComponent {
 
   onEdit(product: Product): void {
     this.dialog.open(EditDialogComponent, {
-      data: product,
+      data: {
+        mode: ProductDialogMode.Update,
+        product,
+      },
     });
   }
 
   onAdd(): void {
-    this.dialog.open(AddProductDialogComponent);
+    this.dialog.open(EditDialogComponent, {
+      data: {
+        mode: ProductDialogMode.Create,
+      },
+    });
   }
 }

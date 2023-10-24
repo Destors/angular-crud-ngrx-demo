@@ -5,7 +5,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EditDialogModule } from '../dialogs/edit/edit-dialog.module';
-import { AddDialogModule } from '../dialogs/add/add-product-dialog.module';
 import { DeleteProductDialogModule } from '../dialogs/delete/delete-product-dialog.module';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { DeleteProductDialogModule } from '../dialogs/delete/delete-product-dial
     MatButtonModule,
     MatIconModule,
     EditDialogModule,
-    AddDialogModule,
     DeleteProductDialogModule,
   ],
   exports: [ProductCardComponent],
