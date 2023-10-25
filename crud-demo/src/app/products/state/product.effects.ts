@@ -45,6 +45,18 @@ export class ProductEffects {
     );
   });
 
+  createProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.createProduct),
+      switchMap((product) =>
+        this.productApiService.createProduct({ product }).pipe(
+          map(() => ProductActions.createproductSuccess(product)),
+          catchError((error) => of(ProductActions.createproductFailure(error)))
+        )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private productApiService: ProductApiService,

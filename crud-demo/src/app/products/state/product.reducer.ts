@@ -56,6 +56,10 @@ const productReducer = createReducer(
   ),
   on(ProductActions.removeProductSuccess, (state, { product }) =>
     productAdapter.removeOne(selectCartProductId(product), state)
+  ),
+
+  on(ProductActions.createproductSuccess, (state, { product }) =>
+    productAdapter.addOne(product, state)
   )
 );
 

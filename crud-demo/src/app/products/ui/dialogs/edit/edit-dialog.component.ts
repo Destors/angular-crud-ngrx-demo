@@ -11,6 +11,7 @@ import {
   ProductFields,
 } from 'src/app/products/common/product.enum';
 import { Product } from 'src/app/products/common/product.interface';
+import { ProductFacade } from 'src/app/products/state/product.facade';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -25,14 +26,18 @@ export class EditDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { mode: ProductDialogMode; product: Product }
+    public data: { mode: ProductDialogMode; product: Product },
+    private readonly productFacade: ProductFacade
   ) {
     this.mode = this.data.mode;
     this.initForm();
   }
 
-  onSubmit(): void {
-    console.log('submit');
+  onSubmit(product: Product): void {
+    if (this.mode === ProductDialogMode.Create) {
+      const productWithId = { ...product, id: Date.now() };
+      this.productFacade.createProduct(productWithId);
+    }
   }
 
   private initForm(): void {

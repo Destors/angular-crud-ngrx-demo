@@ -3,7 +3,7 @@
   <p>
     {{ mode | titlecase }} <b>{{ data.product.title }} </b>in store
   </p>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
     <ng-container *ngFor="let fieldItem of productFields">
       <mat-form-field class="w-100">
         <input

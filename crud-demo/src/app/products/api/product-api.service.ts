@@ -16,6 +16,10 @@ export class ProductApiService {
   }
 
   removeProduct(productId: any): Observable<string> {
-    return of('Product delated');
+    return of('Product delated success');
+  }
+
+  createProduct(product: any): Observable<string> {
+    return of('Product created success');
   }
 }

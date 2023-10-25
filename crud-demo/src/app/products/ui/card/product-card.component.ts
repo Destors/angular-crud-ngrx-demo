@@ -31,10 +31,11 @@ export class ProductCardComponent {
     });
   }
 
-  onAdd(): void {
+  onAdd(product: Product): void {
     this.dialog.open(EditDialogComponent, {
       data: {
         mode: ProductDialogMode.Create,
+        product,
       },
     });
   }

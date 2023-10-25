@@ -46,3 +46,19 @@ export const removeProductFailure = createAction(
   '[Product] Remove Product Failure',
   props<{ error: string; product: Product }>()
 );
+
+// create
+export const createProduct = createAction(
+  '[Product] Create product',
+  props<{ product: Product }>()
+);
+
+export const createproductSuccess = createAction(
+  '[Product] Load product Success',
+  props<{ product: Product }>()
+);
+
+export const createproductFailure = createAction(
+  '[Product] Load product Failure',
+  props<{ error: HttpErrorResponse }>()
+);

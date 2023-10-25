@@ -42,4 +42,8 @@ export class ProductFacade {
   removeProduct(product: Product) {
     this.store.dispatch(ProductActions.removeProduct({ product }));
   }
+
+  createProduct(product: Product) {
+    this.store.dispatch(ProductActions.createProduct({ product }));
+  }
 }
