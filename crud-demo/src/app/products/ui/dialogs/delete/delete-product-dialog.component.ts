@@ -16,6 +16,6 @@ export class DeleteProductDialogComponent {
   ) {}
 
   onRemove(product: Product) {
-    this.productFacade.removeProduct(product);
+    this.productFacade.deleteProduct(product);
   }
 }

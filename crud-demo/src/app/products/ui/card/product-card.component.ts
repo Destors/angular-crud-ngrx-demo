@@ -16,7 +16,7 @@ export class ProductCardComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  onRemove(product: Product) {
+  onRemove(product: Product): void {
     this.dialog.open(DeleteProductDialogComponent, {
       data: product,
     });
@@ -38,5 +38,9 @@ export class ProductCardComponent {
         product,
       },
     });
+  }
+
+  testMet(text: string): string {
+    return text;
   }
 }

@@ -4,27 +4,17 @@ import { StoreModule } from '@ngrx/store';
 
 import { ProductEffects } from './product.effects';
 import { ProductFacade } from './product.facade';
-import { productFeatureKey, reducer } from './product.reducer';
-import { ProductApiModule } from '../api/product-api.module';
 
-export function metaServiceFactory(productFacade: ProductFacade): () => void {
-  return (): void => productFacade.load();
-}
+import { ProductApiModule } from '../api/product-api.module';
+import { productsReducer } from './product.reducer';
 
 @NgModule({
   imports: [
     ProductApiModule,
-    StoreModule.forFeature(productFeatureKey, reducer),
+    StoreModule.forFeature('product', productsReducer),
     EffectsModule.forFeature([ProductEffects]),
   ],
-  providers: [
-    ProductFacade,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: metaServiceFactory,
-      deps: [ProductFacade],
-      multi: true,
-    },
-  ],
+
+  providers: [ProductFacade],
 })
 export class ProductsStateModule {}

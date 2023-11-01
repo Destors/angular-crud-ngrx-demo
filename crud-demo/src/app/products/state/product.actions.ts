@@ -1,64 +1,54 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { Product } from '../common/product.interface';
 
-export enum ProductActions {
-  LOAD_PRODUCTS = 'LOAD_PRODUCTS',
-  LOAD_PRODUCTS_SUCCESS = 'LOAD_PRODUCTS_SUCCESS',
-  ADD_PRODUCT = 'ADD_PRODUCT',
-  GET_PRODUCTS = 'GET_PRODUCTS',
-  EDIT_PRODUCTS = 'EDIT_PRODUCTS',
-  DELETE_PRODUCTS = 'DELETE_PRODUCTS',
-}
+const prefix = '[Products]';
 
-export const init = createAction('[Product] Init');
+export const getProducts = createAction(`${prefix} Get Products`);
 
-export const restore = createAction(
-  '[Product] Restore',
-  props<{ products: Product[] }>()
+export const getProductsSuccess = createAction(
+  `${getProducts.type} Success`,
+  props<{
+    products: Product[];
+  }>()
 );
 
-// load
-export const load = createAction('[Product] Load');
-
-export const loadSuccess = createAction(
-  '[Product] Load Success',
-  props<{ products: Product[] }>()
-);
-
-export const loadFailure = createAction(
-  '[Product] Load Failure',
-  props<{ error: HttpErrorResponse }>()
-);
-
-// delete
-export const removeProduct = createAction(
-  '[Product] Remove Product',
-  props<{ product: Product }>()
-);
-
-export const removeProductSuccess = createAction(
-  '[Product] Remove Product Success',
-  props<{ product: Product }>()
-);
-
-export const removeProductFailure = createAction(
-  '[Product] Remove Product Failure',
-  props<{ error: string; product: Product }>()
-);
-
-// create
 export const createProduct = createAction(
-  '[Product] Create product',
-  props<{ product: Product }>()
+  `${prefix} Create Product`,
+  props<{
+    product: Product;
+  }>()
 );
 
-export const createproductSuccess = createAction(
-  '[Product] Load product Success',
-  props<{ product: Product }>()
+export const createProductSuccess = createAction(
+  `${createProduct.type} Success`,
+  props<{
+    product: Product;
+  }>()
 );
 
-export const createproductFailure = createAction(
-  '[Product] Load product Failure',
-  props<{ error: HttpErrorResponse }>()
+export const updateProduct = createAction(
+  `${prefix} Update Product`,
+  props<{
+    product: Product;
+  }>()
+);
+
+export const updateProductSuccess = createAction(
+  `${updateProduct.type} Success`,
+  props<{
+    product: Product;
+  }>()
+);
+
+export const deleteProduct = createAction(
+  `${prefix} Delete Product`,
+  props<{
+    product: Product;
+  }>()
+);
+export const deleteProductSuccess = createAction(
+  `${deleteProduct.type} Success`,
+  props<{
+    product: Product;
+  }>()
 );

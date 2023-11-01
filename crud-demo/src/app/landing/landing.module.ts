@@ -7,7 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [LandingComponent],
-  imports: [CommonModule, MatTreeModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatTreeModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTreeModule,
+  ],
   exports: [LandingComponent],
 })
 export class LandingModule {}

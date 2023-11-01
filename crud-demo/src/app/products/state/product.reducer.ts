@@ -1,71 +1,72 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Product } from '../common/product.interface';
-import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
+import { ProductState } from '../common/product.interface';
 
 import * as ProductActions from './product.actions';
 
-export const productFeatureKey = 'products';
+export const initialProductsState: ProductState = {
+  products: [],
+  isLoading: false,
+};
 
-export interface ProductState extends EntityState<Product> {
-  selectedId: number | null;
-  loaded: boolean;
-}
-
-export interface ProductPartialState {
-  readonly [productFeatureKey]: ProductState;
-}
-
-export function selectCartProductId(product: Product): number {
-  return product.id;
-}
-
-export const productAdapter: EntityAdapter<Product> =
-  createEntityAdapter<Product>({ selectId: selectCartProductId });
-
-export const productInitialState: ProductState = productAdapter.getInitialState(
-  {
-    selectedId: null,
-    loaded: false,
-  }
-);
-
-const productReducer = createReducer(
-  productInitialState,
-  on(
-    ProductActions.restore,
-    (state, { products }): ProductState =>
-      productAdapter.upsertMany(products, {
-        ...state,
-        loaded: true,
-      })
-  ),
-  on(
-    ProductActions.loadSuccess,
-    (state, { products }): ProductState =>
-      productAdapter.setAll(products, {
-        ...state,
-        loaded: true,
-      })
-  ),
-  on(
-    ProductActions.loadFailure,
-    (state): ProductState => ({
+const reducer = createReducer<ProductState>(
+  initialProductsState,
+  on(ProductActions.getProducts, (state) => {
+    return {
       ...state,
-      loaded: true,
-    })
-  ),
-  on(ProductActions.removeProductSuccess, (state, { product }) =>
-    productAdapter.removeOne(selectCartProductId(product), state)
-  ),
-
-  on(ProductActions.createproductSuccess, (state, { product }) =>
-    productAdapter.addOne(product, state)
-  )
+      isLoading: true,
+    };
+  }),
+  on(ProductActions.getProductsSuccess, (state, { products }) => {
+    return {
+      ...state,
+      isLoading: false,
+      products,
+    };
+  }),
+  on(ProductActions.createProduct, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(ProductActions.createProductSuccess, (state, { product }) => {
+    return {
+      ...state,
+      products: [...state.products, product],
+      isLoading: false,
+    };
+  }),
+  on(ProductActions.updateProduct, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(ProductActions.updateProductSuccess, (state, { product }) => {
+    return {
+      ...state,
+      products: state.products.map((b) => (b.id === product.id ? product : b)),
+      isLoading: false,
+    };
+  }),
+  on(ProductActions.deleteProduct, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(ProductActions.deleteProductSuccess, (state, { product }) => {
+    return {
+      ...state,
+      isLoading: false,
+      products: state.products.filter((b) => b.id !== product.id),
+    };
+  })
 );
 
-export function reducer(
-  state: ProductState | undefined,
-  action: Action
+export function productsReducer(
+  state = initialProductsState,
+  actions: Action
 ): ProductState {
-  return productReducer(state, action);
+  return reducer(state, actions);
 }

@@ -1,69 +1,63 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
+import { map, switchMap } from 'rxjs/operators';
+
 import { ProductApiService } from '../api/product-api.service';
 
 import * as ProductActions from './product.actions';
+
 import { Action, Store } from '@ngrx/store';
+import { Product } from '../common/product.interface';
 
 @Injectable()
-export class ProductEffects {
-  init$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ProductActions.init),
-      concatMap(() =>
-        this.productApiService.getAllProducts().pipe(
-          map((products) => ProductActions.loadSuccess({ products })),
-          catchError((error) => of(ProductActions.loadFailure({ error })))
-        )
-      )
-    );
-  });
-
-  load$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ProductActions.load),
-      concatMap(() =>
-        this.productApiService.getAllProducts().pipe(
-          map((products) => ProductActions.loadSuccess({ products })),
-          catchError((error) => of(ProductActions.loadFailure({ error })))
-        )
-      )
-    );
-  });
-
-  removeProduct$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ProductActions.removeProduct),
-      switchMap((product) =>
-        this.productApiService.removeProduct({ product }).pipe(
-          map(() => ProductActions.removeProductSuccess(product)),
-          catchError((error) => of(ProductActions.removeProductFailure(error)))
-        )
-      )
-    );
-  });
-
-  createProduct$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ProductActions.createProduct),
-      switchMap((product) =>
-        this.productApiService.createProduct({ product }).pipe(
-          map(() => ProductActions.createproductSuccess(product)),
-          catchError((error) => of(ProductActions.createproductFailure(error)))
-        )
-      )
-    );
-  });
-
+export class ProductEffects implements OnInitEffects {
   constructor(
     private actions$: Actions,
     private productApiService: ProductApiService,
     private readonly store: Store
   ) {}
 
+  getProduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.getProducts),
+      switchMap(() => this.productApiService.getProducts()),
+      map((products: Product[]) =>
+        ProductActions.getProductsSuccess({ products })
+      )
+    )
+  );
+
+  createProduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.createProduct),
+      switchMap(({ product }) => this.productApiService.create(product)),
+      map((product: Product) =>
+        ProductActions.createProductSuccess({ product })
+      )
+    )
+  );
+
+  updateproduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.updateProduct),
+      switchMap(({ product }) => this.productApiService.update(product)),
+      map((product: Product) =>
+        ProductActions.updateProductSuccess({ product })
+      )
+    )
+  );
+
+  deleteproduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.deleteProduct),
+      switchMap(({ product }) => this.productApiService.delete(product)),
+      map((product: Product) =>
+        ProductActions.deleteProductSuccess({ product })
+      )
+    )
+  );
+
   ngrxOnInitEffects(): Action {
-    return ProductActions.init();
+    return ProductActions.getProducts();
   }
 }

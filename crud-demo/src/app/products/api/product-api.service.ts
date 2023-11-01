@@ -3,23 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map, of } from 'rxjs';
 import { Product } from '../common/product.interface';
 import { ProductApiHelper } from './product-api.helper';
+import { productList } from '../common/product.data';
 
 @Injectable()
 export class ProductApiService {
+  private productList: Product[] = productList;
+
   constructor(private httpClient: HttpClient) {}
 
-  getAllProducts(): Observable<Product[]> {
-    const apiUrl = '/assets/data/products.json';
-    return this.httpClient
-      .get<Product[]>(apiUrl)
-      .pipe(map((product) => ProductApiHelper.setProductId(product)));
+  getProducts(): Observable<Product[]> {
+    return of(this.productList);
   }
 
-  removeProduct(productId: any): Observable<string> {
-    return of('Product delated success');
+  create(product: Product): Observable<Product> {
+    this.productList = [...this.productList, product];
+
+    return of(product);
   }
 
-  createProduct(product: any): Observable<string> {
-    return of('Product created success');
+  update(updateProduct: Product): Observable<Product> {
+    this.productList.map((product) =>
+      product.id === updateProduct.id ? updateProduct : product
+    );
+
+    return of(updateProduct);
+  }
+
+  delete(product: Product): Observable<Product> {
+    this.productList = this.productList.filter((b) => b.id !== product.id);
+    return of(product);
   }
 }
