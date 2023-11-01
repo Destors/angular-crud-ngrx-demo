@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProductCardComponent } from './product-card.component';
-import { ProductFacade } from '../../state/product.facade';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -12,6 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProductListModule } from '../list/product-list.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { productsReducer } from '../../state/product.reducer';
+import { ProductEffects } from '../../state/product.effects';
+import { ProductApiService } from '../../api/product-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
@@ -21,14 +23,18 @@ describe('ProductCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ProductCardComponent],
       imports: [
+        HttpClientModule,
         MatDialogModule,
         MatCardModule,
         MatIconModule,
         ProductListModule,
-        EffectsModule.forRoot([]),
         StoreModule.forRoot({}),
+        StoreModule.forFeature('product', productsReducer),
+        EffectsModule.forRoot([]),
+        EffectsModule.forFeature([ProductEffects]),
       ],
       providers: [
+        ProductApiService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
       ],
@@ -40,9 +46,5 @@ describe('ProductCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should Tom', () => {
-    expect(component.testMet('Tom')).toBe('Tom');
   });
 });

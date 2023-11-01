@@ -37,6 +37,8 @@ export class EditDialogComponent {
     if (this.mode === ProductDialogMode.Create) {
       const productWithId = { ...product, id: Date.now() };
       this.productFacade.createProduct(productWithId);
+    } else if (this.mode === ProductDialogMode.Update) {
+      this.productFacade.updateProduct(product);
     }
   }
 
