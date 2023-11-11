@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from 'src/app/products/common/product.interface';
 import { ProductFacade } from 'src/app/products/state/product.facade';
 
@@ -12,10 +12,12 @@ import { ProductFacade } from 'src/app/products/state/product.facade';
 export class DeleteProductDialogComponent {
   constructor(
     private readonly productFacade: ProductFacade,
-    @Inject(MAT_DIALOG_DATA) public data: Product
+    @Inject(MAT_DIALOG_DATA) public data: Product,
+    private dialogRef: MatDialogRef<DeleteProductDialogComponent>
   ) {}
 
   onRemove(product: Product) {
     this.productFacade.deleteProduct(product);
+    this.dialogRef.close();
   }
 }

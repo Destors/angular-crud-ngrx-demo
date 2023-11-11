@@ -5,7 +5,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   ProductDialogMode,
   ProductFields,
@@ -27,6 +27,7 @@ export class EditDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { mode: ProductDialogMode; product: Product },
+    private dialogRef: MatDialogRef<EditDialogComponent>,
     private readonly productFacade: ProductFacade
   ) {
     this.mode = this.data.mode;
@@ -40,6 +41,7 @@ export class EditDialogComponent {
     } else if (this.mode === ProductDialogMode.Update) {
       this.productFacade.updateProduct(product);
     }
+    this.dialogRef.close();
   }
 
   private initForm(): void {
