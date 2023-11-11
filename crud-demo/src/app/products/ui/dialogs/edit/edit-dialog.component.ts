@@ -21,24 +21,24 @@ import { ProductFacade } from 'src/app/products/state/product.facade';
 })
 export class EditDialogComponent {
   form!: UntypedFormGroup;
-  mode: ProductDialogMode;
+  dialogMode: ProductDialogMode;
   productFields = Object.values(ProductFields);
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { mode: ProductDialogMode; product: Product },
+    public data: { dialogMode: ProductDialogMode; product: Product },
     private dialogRef: MatDialogRef<EditDialogComponent>,
     private readonly productFacade: ProductFacade
   ) {
-    this.mode = this.data.mode;
+    this.dialogMode = this.data.dialogMode;
     this.initForm();
   }
 
   onSubmit(product: Product): void {
-    if (this.mode === ProductDialogMode.Create) {
+    if (this.dialogMode === ProductDialogMode.Create) {
       const productWithId = { ...product, id: Date.now() };
       this.productFacade.createProduct(productWithId);
-    } else if (this.mode === ProductDialogMode.Update) {
+    } else if (this.dialogMode === ProductDialogMode.Update) {
       this.productFacade.updateProduct(product);
     }
     this.dialogRef.close();
@@ -52,7 +52,7 @@ export class EditDialogComponent {
       [ProductFields.Type]: new FormControl(null, [Validators.required]),
     });
 
-    if (this.mode === ProductDialogMode.Update) {
+    if (this.dialogMode === ProductDialogMode.Update) {
       this.form.patchValue({ ...this.data.product });
     }
   }

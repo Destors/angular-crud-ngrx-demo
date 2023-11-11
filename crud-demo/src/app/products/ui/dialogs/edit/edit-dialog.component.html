@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit product</h1>
 <div mat-dialog-content>
   <p>
-    {{ mode | titlecase }} <b>{{ data.product.title }} </b>in store
+    {{ dialogMode | titlecase }} <b>{{ data.product.title }} </b>in store
   </p>
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
     <ng-container *ngFor="let fieldItem of productFields">

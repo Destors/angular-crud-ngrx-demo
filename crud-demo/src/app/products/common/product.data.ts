@@ -3,6 +3,7 @@ import { Product } from './product.interface';
 
 export let productList: Product[] = [
   {
+    // id generetor only for POC.
     id: Math.floor(Math.random() * 1000),
     title: 'Apple Iphone 15 pro max',
     price: 2500,

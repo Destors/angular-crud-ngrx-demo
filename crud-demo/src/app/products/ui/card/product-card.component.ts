@@ -25,7 +25,7 @@ export class ProductCardComponent {
   onEdit(product: Product): void {
     this.dialog.open(EditDialogComponent, {
       data: {
-        mode: ProductDialogMode.Update,
+        dialogMode: ProductDialogMode.Update,
         product,
       },
     });
@@ -34,7 +34,7 @@ export class ProductCardComponent {
   onAdd(product: Product): void {
     this.dialog.open(EditDialogComponent, {
       data: {
-        mode: ProductDialogMode.Create,
+        dialogMode: ProductDialogMode.Create,
         product,
       },
     });
