@@ -45,7 +45,9 @@ const reducer = createReducer<ProductState>(
   on(ProductActions.updateProductSuccess, (state, { product }) => {
     return {
       ...state,
-      products: state.products.map((b) => (b.id === product.id ? product : b)),
+      products: state.products.map((productItem) =>
+        productItem.id === product.id ? product : productItem
+      ),
       isLoading: false,
     };
   }),

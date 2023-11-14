@@ -12,6 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from 'src/app/products/state/product.effects';
 import { ProductApiService } from 'src/app/products/api/product-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { EditDialogModule } from './edit-dialog.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('EditDialogComponent', () => {
   let component: EditDialogComponent;
@@ -27,10 +29,12 @@ describe('EditDialogComponent', () => {
         StoreModule.forFeature('product', productsReducer),
         EffectsModule.forRoot([]),
         EffectsModule.forFeature([ProductEffects]),
+        EditDialogModule,
+        NoopAnimationsModule,
       ],
       providers: [
         ProductApiService,
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: { product: { title: 'test ' } } },
         { provide: MatDialogRef, useValue: {} },
       ],
     });

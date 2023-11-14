@@ -9,7 +9,7 @@ import { productList } from '../common/product.data';
 export class ProductApiService {
   private productList: Product[] = productList;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor() {}
 
   getProducts(): Observable<Product[]> {
     return of(this.productList);

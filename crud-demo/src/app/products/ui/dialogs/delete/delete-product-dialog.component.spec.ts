@@ -30,7 +30,7 @@ describe('DeleteProductDialogComponent', () => {
       declarations: [DeleteProductDialogComponent],
       providers: [
         ProductApiService,
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: { product: { title: 'test ' } } },
         { provide: MatDialogRef, useValue: {} },
       ],
     });
