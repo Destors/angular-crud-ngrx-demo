@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/products/common/product.interface';
-import { ProductFacade } from 'src/app/products/state/product.facade';
 
 @Component({
   selector: 'app-product-list',
@@ -11,11 +10,9 @@ import { ProductFacade } from 'src/app/products/state/product.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent {
-  products$: Observable<Product[]>;
+  @Input() products$!: Observable<Product[]>;
 
-  constructor(private readonly productFacade: ProductFacade) {
-    this.products$ = this.productFacade.products$;
-  }
+  constructor() {}
 
   trackByFn(index: number, product: Product): number {
     return product.id;

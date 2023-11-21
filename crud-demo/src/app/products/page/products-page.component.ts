@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductFacade } from '../state/product.facade';
+import { Observable } from 'rxjs';
+import { Product } from '../common/product.interface';
 
 @Component({
   selector: 'app-products-page',
@@ -8,9 +10,11 @@ import { ProductFacade } from '../state/product.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsPageComponent implements OnInit {
-  constructor(private productsFacade: ProductFacade) {}
+  products$!: Observable<Product[]>;
+
+  constructor(private productFacade: ProductFacade) {}
 
   ngOnInit(): void {
-    // this.productsFacade.initDispatch();
+    this.products$ = this.productFacade.products$;
   }
 }

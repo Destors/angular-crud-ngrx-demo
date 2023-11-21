@@ -3,8 +3,8 @@ import { Store, select } from '@ngrx/store';
 
 import * as ProductActions from './product.actions';
 import * as ProductSelectors from './product.selectors';
-import { Actions, ofType } from '@ngrx/effects';
-import { Observable, map } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { Observable } from 'rxjs';
 import { Product } from '../common/product.interface';
 
 @Injectable({ providedIn: 'root' })
