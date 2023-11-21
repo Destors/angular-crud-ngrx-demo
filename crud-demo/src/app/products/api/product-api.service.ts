@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, asyncScheduler, scheduled } from 'rxjs';
 import { Product } from '../common/product.interface';
 import { productList } from '../common/product.data';
 
@@ -10,13 +10,14 @@ export class ProductApiService {
   constructor() {}
 
   getProducts(): Observable<Product[]> {
-    return of(this.productList);
+    // using scheduled instead -of()-
+    // This deprecation was introduced in RxJS 6.5 and will become breaking with RxJS 8.
+    return scheduled([this.productList], asyncScheduler);
   }
 
   create(product: Product): Observable<Product> {
     this.productList = [...this.productList, product];
-
-    return of(product);
+    return scheduled([product], asyncScheduler);
   }
 
   update(updateProduct: Product): Observable<Product> {
@@ -24,11 +25,11 @@ export class ProductApiService {
       product.id === updateProduct.id ? updateProduct : product
     );
 
-    return of(updateProduct);
+    return scheduled([updateProduct], asyncScheduler);
   }
 
   delete(product: Product): Observable<Product> {
     this.productList = this.productList.filter((b) => b.id !== product.id);
-    return of(product);
+    return scheduled([product], asyncScheduler);
   }
 }
