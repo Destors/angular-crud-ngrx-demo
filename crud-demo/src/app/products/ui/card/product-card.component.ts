@@ -14,7 +14,7 @@ import { ProductDialogMode } from '../../common/product.enum';
 export class ProductCardComponent {
   @Input() product!: Product;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {}
 
   onRemove(product: Product): void {
     this.dialog.open(DeleteProductDialogComponent, {
@@ -38,9 +38,5 @@ export class ProductCardComponent {
         product,
       },
     });
-  }
-
-  testMet(text: string): string {
-    return text;
   }
 }

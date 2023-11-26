@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductCardComponent } from './product-card.component';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogConfig,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -14,11 +16,17 @@ import { productsReducer } from '../../state/product.reducer';
 import { ProductEffects } from '../../state/product.effects';
 import { ProductApiService } from '../../api/product-api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductType } from '../../common/product.enum';
+import { ProductDialogMode } from '../../common/product.enum';
+import { PRODUCTS_RESPONSE_STUB } from '../../common/product.stub';
+import { DeleteProductDialogComponent } from '../dialogs/delete/delete-product-dialog.component';
+import { EditDialogComponent } from '../dialogs/edit/edit-dialog.component';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
+  let dialog: MatDialog;
+
+  const productStub = PRODUCTS_RESPONSE_STUB[0];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,34 +37,56 @@ describe('ProductCardComponent', () => {
         MatCardModule,
         MatIconModule,
         ProductListModule,
-        StoreModule.forRoot({}),
-        StoreModule.forFeature('product', productsReducer),
-        EffectsModule.forRoot([]),
-        EffectsModule.forFeature([ProductEffects]),
       ],
-      providers: [
-        ProductApiService,
-        { provide: MAT_DIALOG_DATA, useValue: { product: { title: 'test ' } } },
-        { provide: MatDialogRef, useValue: {} },
-      ],
+      providers: [],
     });
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
+    dialog = TestBed.inject(MatDialog);
 
-    const expectedProduct = {
-      id: Math.floor(Math.random() * 1000),
-      title: 'Apple Iphone 15 pro max',
-      price: 2500,
-      type: ProductType.device,
-      desctiption:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
-    };
-
-    component.product = expectedProduct;
+    // set input()
+    component.product = productStub;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open delete product dialog onRemove()', () => {
+    // Spy on the 'open' method of the dialog service
+    const openSpy = spyOn(dialog, 'open');
+
+    // Call the onRemove method
+    component.onRemove(productStub);
+
+    // Expect the 'open' method to have been called with the correct arguments
+    expect(openSpy).toHaveBeenCalledWith(DeleteProductDialogComponent, {
+      data: productStub,
+    });
+  });
+
+  it('should open edit product dialog onEdit()', () => {
+    const openSpy = spyOn(dialog, 'open');
+    component.onEdit(productStub);
+
+    expect(openSpy).toHaveBeenCalledWith(EditDialogComponent, {
+      data: {
+        dialogMode: ProductDialogMode.Update,
+        product: productStub,
+      },
+    });
+  });
+
+  it('should open add product dialog onAdd()', () => {
+    const openSpy = spyOn(dialog, 'open');
+    component.onAdd(productStub);
+
+    expect(openSpy).toHaveBeenCalledWith(EditDialogComponent, {
+      data: {
+        dialogMode: ProductDialogMode.Create,
+        product: productStub,
+      },
+    });
   });
 });
