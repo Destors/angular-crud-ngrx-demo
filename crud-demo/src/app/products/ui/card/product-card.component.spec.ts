@@ -1,20 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductCardComponent } from './product-card.component';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogConfig,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductListModule } from '../list/product-list.module';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { productsReducer } from '../../state/product.reducer';
-import { ProductEffects } from '../../state/product.effects';
-import { ProductApiService } from '../../api/product-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDialogMode } from '../../common/product.enum';
 import { PRODUCTS_RESPONSE_STUB } from '../../common/product.stub';

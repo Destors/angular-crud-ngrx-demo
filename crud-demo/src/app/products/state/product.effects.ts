@@ -10,7 +10,7 @@ import { Action, Store } from '@ngrx/store';
 import { Product } from '../common/product.interface';
 
 @Injectable()
-export class ProductEffects implements OnInitEffects {
+export class ProductEffects {
   constructor(
     private actions$: Actions,
     private productApiService: ProductApiService,
@@ -56,8 +56,4 @@ export class ProductEffects implements OnInitEffects {
       )
     )
   );
-
-  ngrxOnInitEffects(): Action {
-    return ProductActions.getProducts();
-  }
 }
