@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, asyncScheduler, scheduled } from 'rxjs';
+import { Observable, asyncScheduler, scheduled, tap } from 'rxjs';
 import { Product } from '../common/product.interface';
 import { productList } from '../common/product.data';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ProductApiService {
   private productList: Product[] = productList;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    // using scheduled instead -of()-
-    // This deprecation was introduced in RxJS 6.5 and will become breaking with RxJS 8.
-    return scheduled([this.productList], asyncScheduler);
+    const apiUrl = 'api/products';
+    return this.http.get<Product[]>(apiUrl);
   }
 
   create(product: Product): Observable<Product> {

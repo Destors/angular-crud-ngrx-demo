@@ -1,10 +1,10 @@
 import { ProductType } from './product.enum';
 import { Product } from './product.interface';
 
-export let productList: Product[] = [
+export const productList: Product[] = [
   {
     // id generetor only for POC.
-    id: Math.floor(Math.random() * 1000),
+    id: 1,
     title: 'Apple Iphone 15 pro max',
     price: 2500,
     type: ProductType.device,
@@ -12,7 +12,7 @@ export let productList: Product[] = [
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
   },
   {
-    id: Math.floor(Math.random() * 1000),
+    id: 2,
     title: 'Hobbit: Unexpected Journey',
     price: 800,
     type: ProductType.book,
@@ -20,7 +20,7 @@ export let productList: Product[] = [
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
   },
   {
-    id: Math.floor(Math.random() * 1000),
+    id: 3,
     title: 'Nike Air Max',
     price: 700,
     type: ProductType.shoes,

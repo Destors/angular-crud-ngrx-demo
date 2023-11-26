@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { fakeBackendProvider } from './core/api/interceptors/fake-backend/fake-backend.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
     }),
   ],
-  providers: [],
+  providers: [fakeBackendProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
