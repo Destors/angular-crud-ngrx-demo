@@ -1,12 +1,20 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ product.title }}</mat-card-title>
-    <mat-card-subtitle>{{ product.price }}$</mat-card-subtitle>
+    <mat-card-title automation-id="title">
+      {{ product.title }}
+    </mat-card-title>
+    <mat-card-subtitle automation-id="price">
+      {{ product.price | currency }}
+    </mat-card-subtitle>
   </mat-card-header>
+
   <mat-card-content>
-    <p>
+    <p automation-id="desctiption">
       {{ product.desctiption }}
     </p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
     <button mat-icon-button color="primary" (click)="onRemove(product)">
       <mat-icon>delete</mat-icon>
     </button>
@@ -16,5 +24,5 @@
     <button mat-icon-button color="primary" (click)="onAdd(product)">
       <mat-icon>add</mat-icon>
     </button>
-  </mat-card-content>
+  </mat-card-actions>
 </mat-card>

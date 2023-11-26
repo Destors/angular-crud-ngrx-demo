@@ -9,9 +9,11 @@ import { ProductDialogMode } from '../../common/product.enum';
 import { PRODUCTS_RESPONSE_STUB } from '../../common/product.stub';
 import { DeleteProductDialogComponent } from '../dialogs/delete/delete-product-dialog.component';
 import { EditDialogComponent } from '../dialogs/edit/edit-dialog.component';
+import { ProductCardComponentPo } from './product-card.component.po';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
+  let pageObject: ProductCardComponentPo;
   let fixture: ComponentFixture<ProductCardComponent>;
   let dialog: MatDialog;
 
@@ -30,6 +32,7 @@ describe('ProductCardComponent', () => {
       providers: [],
     });
     fixture = TestBed.createComponent(ProductCardComponent);
+    pageObject = new ProductCardComponentPo(fixture);
     component = fixture.componentInstance;
     dialog = TestBed.inject(MatDialog);
 
@@ -40,6 +43,14 @@ describe('ProductCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show product data on UI', () => {
+    fixture.detectChanges();
+
+    expect(pageObject.title).toBeTruthy();
+    expect(pageObject.desctiption).toBeTruthy();
+    expect(pageObject.price).toBeTruthy();
   });
 
   it('should open delete product dialog onRemove()', () => {
