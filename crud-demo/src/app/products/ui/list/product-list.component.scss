@@ -1,5 +1,16 @@
-.products {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 15px;
+@import "../../../core/ui/styles/breakpoints";
+
+.products-list {
+  // mobile first
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    flex-direction: row;
+  }
+
+  &--card {
+    min-height: 100%;
+  }
 }
