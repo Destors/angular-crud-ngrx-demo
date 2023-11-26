@@ -29,6 +29,7 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
    */
   handleRequests(req: HttpRequest<any>, next: HttpHandler): any {
     const { url, method } = req;
+
     if (url.endsWith('/products') && method === 'GET') {
       req = req.clone({
         url: this.productsJsonPath,

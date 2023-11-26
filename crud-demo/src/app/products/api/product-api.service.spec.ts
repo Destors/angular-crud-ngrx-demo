@@ -1,18 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ProductApiService } from './product-api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { StoreModule } from '@ngrx/store';
-import { productsReducer } from '../state/product.reducer';
-import { ProductEffects } from '../state/product.effects';
-import { EffectsModule } from '@ngrx/effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { PRODUCTS_RESPONSE_STUB } from '../common/product.stub';
-import { Data } from '@angular/router';
 
 describe('ProductApiService', () => {
   let service: ProductApiService;
@@ -32,11 +26,16 @@ describe('ProductApiService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
+  afterEach(() => {
+    // After every test, assert that there are no more pending requests.
+    httpTestingController.verify();
+  });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('can test HttpClient.get', () => {
+  it('should pass http get', () => {
     const testData = PRODUCTS_RESPONSE_STUB;
 
     // Make an HTTP GET request
@@ -56,8 +55,5 @@ describe('ProductApiService', () => {
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
     req.flush(testData);
-
-    // Finally, assert that there are no outstanding requests.
-    httpTestingController.verify();
   });
 });
