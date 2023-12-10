@@ -1,37 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ProductsPageComponent } from './products-page.component';
-import { StoreModule } from '@ngrx/store';
-import { productsReducer } from '../state/product.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { ProductEffects } from '../state/product.effects';
-import { ProductApiService } from '../api/product-api.service';
-import { HttpClientModule } from '@angular/common/http';
-import { ProductListModule } from '../ui/list/product-list.module';
+import { ProductFacade } from '../state/product.facade';
+import { Store } from '@ngrx/store';
+import { Actions } from '@ngrx/effects';
+import { of } from 'rxjs';
 
 describe('ProductsPageComponent', () => {
   let component: ProductsPageComponent;
-  let fixture: ComponentFixture<ProductsPageComponent>;
+  let productFacade: ProductFacade;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        ProductListModule,
-        StoreModule.forRoot({}),
-        StoreModule.forFeature('product', productsReducer),
-        EffectsModule.forRoot([]),
-        EffectsModule.forFeature([ProductEffects]),
-      ],
-      declarations: [ProductsPageComponent],
-      providers: [ProductApiService],
-    });
-    fixture = TestBed.createComponent(ProductsPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    const actionsMock = new Actions(of({ type: 'dummyAction' }));
+    const storeMock = jasmine.createSpyObj('Store', ['dispatch', 'pipe']);
+
+    productFacade = new ProductFacade(actionsMock, storeMock);
+    component = new ProductsPageComponent(productFacade);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call initDispatch() and set products$', () => {
+    spyOn(productFacade, 'initDispatch');
+    component.ngOnInit();
+
+    expect(productFacade.initDispatch).toHaveBeenCalled();
+    expect(component.products$).toBe(productFacade.products$);
   });
 });
