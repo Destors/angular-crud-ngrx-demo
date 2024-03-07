@@ -1,18 +1,21 @@
 [
   {
     "title": "Apple Iphone 15 pro max",
+    "id": 1,
     "price": 2500,
     "type": "divice",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   },
   {
     "title": "Hobbit: Unexpected Journey",
+    "id": 2,
     "price": 800,
     "type": "book",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
   },
   {
     "title": "Nike Air Max",
+    "id": 3,
     "price": 700,
     "type": "shoes",
     "desctiption": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!"
