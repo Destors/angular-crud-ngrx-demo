@@ -49,6 +49,13 @@ export const deleteProduct = createAction(
 export const deleteProductSuccess = createAction(
   `${deleteProduct.type} Success`,
   props<{
-    product: Product;
+    products: Product[];
+  }>()
+);
+
+export const deleteProductFailure = createAction(
+  `${deleteProduct.type} Failure`,
+  props<{
+    products: Product[];
   }>()
 );

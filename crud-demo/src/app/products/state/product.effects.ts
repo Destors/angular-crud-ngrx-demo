@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ProductApiService } from '../api/product-api.service';
 
@@ -8,6 +8,7 @@ import * as ProductActions from './product.actions';
 
 import { Action, Store } from '@ngrx/store';
 import { Product } from '../common/product.interface';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ProductEffects {
@@ -50,9 +51,13 @@ export class ProductEffects {
   deleteproduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
-      switchMap(({ product }) => this.productApiService.delete(product)),
-      map((product: Product) =>
-        ProductActions.deleteProductSuccess({ product })
+      switchMap(({ product }) =>
+        this.productApiService.delete(product.id).pipe(
+          map((products: Product[]) =>
+            ProductActions.deleteProductSuccess({ products })
+          ),
+          catchError((e) => throwError(e))
+        )
       )
     )
   );

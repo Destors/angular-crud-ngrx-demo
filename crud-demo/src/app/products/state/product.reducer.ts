@@ -57,11 +57,11 @@ const reducer = createReducer<ProductState>(
       isLoading: true,
     };
   }),
-  on(ProductActions.deleteProductSuccess, (state, { product }) => {
+  on(ProductActions.deleteProductSuccess, (state, { products }) => {
     return {
       ...state,
       isLoading: false,
-      products: state.products.filter((b) => b.id !== product.id),
+      products: products,
     };
   })
 );

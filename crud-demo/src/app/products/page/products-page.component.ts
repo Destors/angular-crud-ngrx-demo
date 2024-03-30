@@ -17,5 +17,6 @@ export class ProductsPageComponent implements OnInit {
   ngOnInit(): void {
     this.productFacade.initDispatch();
     this.products$ = this.productFacade.products$;
+    this.products$.subscribe((v) => console.log(v));
   }
 }

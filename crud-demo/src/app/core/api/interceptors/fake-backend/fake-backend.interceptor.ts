@@ -1,73 +1,85 @@
+import { Injectable } from '@angular/core';
 import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
   HttpRequest,
   HttpResponse,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { productList } from 'src/app/products/common/product.data';
+import { Product } from 'src/app/products/common/product.interface';
+
+let products: Product[] = JSON.parse(JSON.stringify(productList));
 
 @Injectable()
-export class FakeBackendHttpInterceptor implements HttpInterceptor {
-  // default products json path
-  private productsJsonPath = 'assets/data/products.json';
-  constructor(private http: HttpClient) {}
-
+export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(
-    req: HttpRequest<any>,
+    request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return this.handleRequests(req, next);
-  }
-  /**
-   * Handle request's and support with mock data.
-   * @param req
-   * @param next
-   */
-  handleRequests(req: HttpRequest<any>, next: HttpHandler): any {
-    const { url, method } = req;
+    const { url, method, headers, body } = request;
 
-    if (url.endsWith('/products') && method === 'GET') {
-      req = req.clone({
-        url: this.productsJsonPath,
-      });
-      return next.handle(req).pipe(delay(500));
+    return handleRoute();
+
+    function handleRoute() {
+      switch (true) {
+        case url.endsWith('api/products') && method === 'GET':
+          return getUsers();
+        case url.match(/\/products\/\d+$/) && method === 'GET':
+          return getUserById();
+        case url.match(/\/products\/\d+$/) && method === 'PUT':
+          return updateUser();
+        case url.match(/\/products\/\d+$/) && method === 'DELETE':
+          return deleteUser();
+        default:
+          // pass through any requests not handled above
+          return next.handle(request);
+      }
     }
 
-    if (url.endsWith('/products') && method === 'POST') {
-      const { body } = req.clone();
-      // assign a new uuid to new employee
-      body.id = Math.random();
-      return of(new HttpResponse({ status: 200, body })).pipe(delay(500));
+    // route functions
+
+    function getUsers() {
+      return ok(products);
     }
 
-    if (url.match(/\/products\/.*/) && method === 'DELETE') {
-      const empId = this.getProductId(url);
-      return of(new HttpResponse({ status: 200, body: empId })).pipe(
-        delay(500)
-      );
+    function getUserById() {
+      const user = products.find((x) => x.id === idFromUrl());
+      return ok(user);
     }
 
-    // if there is not any matches return default request.
-    return next.handle(req);
-  }
-  /**
-   * Get Employee unique uuid from url.
-   * @param url
-   */
-  getProductId(url: any) {
-    const urlValues = url.split('/');
-    return urlValues[urlValues.length - 1];
+    function updateUser() {
+      let params = body;
+      let user = products.find((x) => x.id === idFromUrl());
+
+      return ok();
+    }
+
+    function deleteUser() {
+      products = products.filter((x) => x.id !== idFromUrl());
+
+      return ok(products);
+    }
+
+    // helper functions
+
+    function ok(body?: any) {
+      return of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
+    }
+
+    function idFromUrl() {
+      const urlParts = url.split('/');
+      return parseInt(urlParts[urlParts.length - 1]);
+    }
   }
 }
-/**
- * Mock backend provider definition for app.module.ts provider.
- */
-export let fakeBackendProvider = {
+
+export const fakeBackendProvider = {
+  // use fake backend in place of Http service for backend-less development
   provide: HTTP_INTERCEPTORS,
-  useClass: FakeBackendHttpInterceptor,
+  useClass: FakeBackendInterceptor,
   multi: true,
 };
