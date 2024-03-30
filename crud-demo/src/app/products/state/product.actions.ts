@@ -36,7 +36,7 @@ export const updateProduct = createAction(
 export const updateProductSuccess = createAction(
   `${updateProduct.type} Success`,
   props<{
-    product: Product;
+    products: Product[];
   }>()
 );
 

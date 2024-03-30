@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductFacade } from '../state/product.facade';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Product } from '../common/product.interface';
 
 @Component({
@@ -16,7 +16,8 @@ export class ProductsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.productFacade.initDispatch();
-    this.products$ = this.productFacade.products$;
-    this.products$.subscribe((v) => console.log(v));
+    this.products$ = this.productFacade.products$.pipe(
+      tap((v) => console.log(v))
+    );
   }
 }

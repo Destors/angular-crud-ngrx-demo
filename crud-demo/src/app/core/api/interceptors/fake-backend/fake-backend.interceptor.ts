@@ -12,7 +12,7 @@ import { delay } from 'rxjs/operators';
 import { productList } from 'src/app/products/common/product.data';
 import { Product } from 'src/app/products/common/product.interface';
 
-let products: Product[] = JSON.parse(JSON.stringify(productList));
+let productsDataBase: Product[] = JSON.parse(JSON.stringify(productList));
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -30,7 +30,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return getUsers();
         case url.match('api/products') && method === 'POST':
           return createProduct();
-        case url.match(/\/products\/\d+$/) && method === 'PUT':
+        case url.match(/\/products\/\d+$/) && method === 'PATCH':
           return updateProduct();
         case url.match(/\/products\/\d+$/) && method === 'DELETE':
           return deleteProduct();
@@ -43,32 +43,34 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
 
     function getUsers() {
-      return ok(products);
+      return ok(productsDataBase);
     }
 
     function createProduct() {
       let newProduct = JSON.parse(JSON.stringify(body));
 
-      newProduct.id = products.length
-        ? Math.max(...products.map((x) => x.id)) + 1
+      newProduct.id = productsDataBase.length
+        ? Math.max(...productsDataBase.map((x) => x.id)) + 1
         : 1;
 
-      const updatedProducts = [...products, newProduct];
+      productsDataBase = [...productsDataBase, newProduct];
 
-      return ok(updatedProducts);
+      return ok(productsDataBase);
     }
 
     function updateProduct() {
-      let params = body;
-      let user = products.find((x) => x.id === idFromUrl());
+      // TODO make partial update
+      productsDataBase = productsDataBase.map((product) =>
+        product.id === body.id ? body : product
+      );
 
-      return ok();
+      return ok(productsDataBase);
     }
 
     function deleteProduct() {
-      products = products.filter((x) => x.id !== idFromUrl());
+      productsDataBase = productsDataBase.filter((x) => x.id !== idFromUrl());
 
-      return ok(products);
+      return ok(productsDataBase);
     }
 
     // helper functions

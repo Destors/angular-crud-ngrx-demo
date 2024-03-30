@@ -21,14 +21,17 @@ export class ProductApiService {
       .pipe(tap(() => console.log('post new product to fake-Be')));
   }
 
-  update(updateProduct: Product): Observable<Product> {
-    return scheduled([updateProduct], asyncScheduler);
+  updateProduct(updatedProduct: Product): Observable<Product[]> {
+    const apiUrl = `api/products/${updatedProduct.id}`;
+    return this.http
+      .patch<Product[]>(apiUrl, updatedProduct)
+      .pipe(tap(() => console.log('patch new product to fake-Be')));
   }
 
   deleteProductById(id: number): Observable<Product[]> {
     const apiUrl = `api/products/${id}`;
     return this.http
       .delete<Product[]>(apiUrl)
-      .pipe(tap(() => console.log('delete product to fake-Be')));
+      .pipe(tap(() => console.log('delete product from fake-Be')));
   }
 }

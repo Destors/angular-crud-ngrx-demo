@@ -38,10 +38,10 @@ export class EditDialogComponent {
     if (this.dialogMode === ProductDialogMode.Create) {
       this.productFacade.createProduct(product);
     } else if (this.dialogMode === ProductDialogMode.Update) {
-      this.productFacade.updateProduct({
-        ...product,
-        id: this.data.product.id,
-      });
+      const updatedProduct: Product = { ...product, id: this.data.product.id };
+
+      this.productFacade.updateProduct(updatedProduct);
+      console.log(product);
     }
     this.dialogRef.close();
   }

@@ -5,17 +5,24 @@
   </p>
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
     <ng-container *ngFor="let fieldItem of productFields">
-      <mat-form-field class="w-100">
+      <mat-label>{{ fieldItem | titlecase }}</mat-label>
+      <mat-form-field class="w-100" appearance="outline">
         <input
           matInput
-          [placeholder]="fieldItem | titlecase"
+          [placeholder]="'Add ' + fieldItem"
           [formControlName]="fieldItem"
         />
       </mat-form-field>
     </ng-container>
     <div mat-dialog-actions>
       <button mat-button mat-dialog-close>Close</button>
-      <button mat-raised-button type="submit">Submit</button>
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="form.untouched || form.invalid"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </div>

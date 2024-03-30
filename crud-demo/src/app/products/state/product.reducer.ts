@@ -42,13 +42,11 @@ const reducer = createReducer<ProductState>(
       isLoading: true,
     };
   }),
-  on(ProductActions.updateProductSuccess, (state, { product }) => {
+  on(ProductActions.updateProductSuccess, (state, { products }) => {
     return {
       ...state,
-      products: state.products.map((productItem) =>
-        productItem.id === product.id ? product : productItem
-      ),
       isLoading: false,
+      products,
     };
   }),
   on(ProductActions.deleteProduct, (state) => {

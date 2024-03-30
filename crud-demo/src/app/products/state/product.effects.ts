@@ -41,9 +41,9 @@ export class ProductEffects {
   updateproduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.updateProduct),
-      switchMap(({ product }) => this.productApiService.update(product)),
-      map((product: Product) =>
-        ProductActions.updateProductSuccess({ product })
+      switchMap(({ product }) => this.productApiService.updateProduct(product)),
+      map((products: Product[]) =>
+        ProductActions.updateProductSuccess({ products })
       )
     )
   );
