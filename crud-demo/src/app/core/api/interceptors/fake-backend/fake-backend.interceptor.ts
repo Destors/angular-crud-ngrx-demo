@@ -28,12 +28,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       switch (true) {
         case url.endsWith('api/products') && method === 'GET':
           return getUsers();
-        case url.match(/\/products\/\d+$/) && method === 'GET':
-          return getUserById();
+        case url.match('api/products') && method === 'POST':
+          return createProduct();
         case url.match(/\/products\/\d+$/) && method === 'PUT':
-          return updateUser();
+          return updateProduct();
         case url.match(/\/products\/\d+$/) && method === 'DELETE':
-          return deleteUser();
+          return deleteProduct();
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -46,19 +46,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok(products);
     }
 
-    function getUserById() {
-      const user = products.find((x) => x.id === idFromUrl());
-      return ok(user);
+    function createProduct() {
+      let newProduct = JSON.parse(JSON.stringify(body));
+
+      newProduct.id = products.length
+        ? Math.max(...products.map((x) => x.id)) + 1
+        : 1;
+
+      const updatedProducts = [...products, newProduct];
+
+      return ok(updatedProducts);
     }
 
-    function updateUser() {
+    function updateProduct() {
       let params = body;
       let user = products.find((x) => x.id === idFromUrl());
 
       return ok();
     }
 
-    function deleteUser() {
+    function deleteProduct() {
       products = products.filter((x) => x.id !== idFromUrl());
 
       return ok(products);

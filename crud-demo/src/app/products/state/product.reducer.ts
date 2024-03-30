@@ -29,11 +29,11 @@ const reducer = createReducer<ProductState>(
       isLoading: true,
     };
   }),
-  on(ProductActions.createProductSuccess, (state, { product }) => {
+  on(ProductActions.createProductSuccess, (state, { products }) => {
     return {
       ...state,
-      products: [...state.products, product],
       isLoading: false,
+      products,
     };
   }),
   on(ProductActions.updateProduct, (state) => {

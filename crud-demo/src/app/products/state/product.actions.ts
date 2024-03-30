@@ -22,7 +22,7 @@ export const createProduct = createAction(
 export const createProductSuccess = createAction(
   `${createProduct.type} Success`,
   props<{
-    product: Product;
+    products: Product[];
   }>()
 );
 

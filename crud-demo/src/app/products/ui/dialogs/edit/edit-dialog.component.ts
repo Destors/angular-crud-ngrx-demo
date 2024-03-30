@@ -36,8 +36,7 @@ export class EditDialogComponent {
 
   onSubmit(product: Product): void {
     if (this.dialogMode === ProductDialogMode.Create) {
-      const productWithId = { ...product, id: Date.now() };
-      this.productFacade.createProduct(productWithId);
+      this.productFacade.createProduct(product);
     } else if (this.dialogMode === ProductDialogMode.Update) {
       this.productFacade.updateProduct({
         ...product,

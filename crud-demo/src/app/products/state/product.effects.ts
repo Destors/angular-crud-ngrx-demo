@@ -32,8 +32,8 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.createProduct),
       switchMap(({ product }) => this.productApiService.create(product)),
-      map((product: Product) =>
-        ProductActions.createProductSuccess({ product })
+      map((products: Product[]) =>
+        ProductActions.createProductSuccess({ products })
       )
     )
   );
@@ -52,7 +52,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
       switchMap(({ product }) =>
-        this.productApiService.delete(product.id).pipe(
+        this.productApiService.deleteProductById(product.id).pipe(
           map((products: Product[]) =>
             ProductActions.deleteProductSuccess({ products })
           ),
