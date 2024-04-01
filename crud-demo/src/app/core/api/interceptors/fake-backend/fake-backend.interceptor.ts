@@ -12,77 +12,67 @@ import { delay } from 'rxjs/operators';
 import { productList } from 'src/app/products/common/product.data';
 import { Product } from 'src/app/products/common/product.interface';
 
-let productsDataBase: Product[] = JSON.parse(JSON.stringify(productList));
-
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
+  private productsDataBase: Product[] = JSON.parse(JSON.stringify(productList));
+  private apiUrl = 'api/products';
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const { url, method, headers, body } = request;
+    return this.handleRoute(request, next);
+  }
 
-    return handleRoute();
-
-    function handleRoute() {
-      switch (true) {
-        case url.endsWith('api/products') && method === 'GET':
-          return getUsers();
-        case url.match('api/products') && method === 'POST':
-          return createProduct();
-        case url.match(/\/products\/\d+$/) && method === 'PATCH':
-          return updateProduct();
-        case url.match(/\/products\/\d+$/) && method === 'DELETE':
-          return deleteProduct();
-        default:
-          // pass through any requests not handled above
-          return next.handle(request);
-      }
+  handleRoute(request: HttpRequest<any>, next: HttpHandler) {
+    const { url, method, body } = request;
+    switch (true) {
+      case url.endsWith(this.apiUrl) && method === 'GET':
+        return this.getUsers();
+      case url.endsWith(this.apiUrl) && method === 'POST':
+        return this.createProduct(body);
+      case url.endsWith(this.apiUrl) && method === 'PATCH':
+        return this.updateProduct(body);
+      case url.endsWith(this.apiUrl) && method === 'DELETE':
+        return this.deleteProduct(body);
+      default:
+        // pass through any requests not handled above
+        return next.handle(request);
     }
+  }
 
-    // route functions
+  getUsers(): Observable<HttpResponse<any>> {
+    return this.ok(this.productsDataBase);
+  }
 
-    function getUsers() {
-      return ok(productsDataBase);
-    }
+  createProduct(body: any): Observable<HttpResponse<any>> {
+    let newProduct = JSON.parse(JSON.stringify(body));
 
-    function createProduct() {
-      let newProduct = JSON.parse(JSON.stringify(body));
+    newProduct.id = this.productsDataBase.length
+      ? Math.max(...this.productsDataBase.map((x) => x.id)) + 1
+      : 1;
 
-      newProduct.id = productsDataBase.length
-        ? Math.max(...productsDataBase.map((x) => x.id)) + 1
-        : 1;
+    this.productsDataBase = [...this.productsDataBase, newProduct];
 
-      productsDataBase = [...productsDataBase, newProduct];
+    return this.ok(this.productsDataBase);
+  }
 
-      return ok(productsDataBase);
-    }
+  updateProduct(body: any): Observable<HttpResponse<any>> {
+    this.productsDataBase = this.productsDataBase.map((product) =>
+      product.id === body.id ? body : product
+    );
 
-    function updateProduct() {
-      // TODO make partial update
-      productsDataBase = productsDataBase.map((product) =>
-        product.id === body.id ? body : product
-      );
+    return this.ok(this.productsDataBase);
+  }
 
-      return ok(productsDataBase);
-    }
+  deleteProduct(body: any): Observable<HttpResponse<any>> {
+    this.productsDataBase = this.productsDataBase.filter((x) => x.id !== body);
 
-    function deleteProduct() {
-      productsDataBase = productsDataBase.filter((x) => x.id !== idFromUrl());
+    return this.ok(this.productsDataBase);
+  }
 
-      return ok(productsDataBase);
-    }
-
-    // helper functions
-
-    function ok(body?: any) {
-      return of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
-    }
-
-    function idFromUrl() {
-      const urlParts = url.split('/');
-      return parseInt(urlParts[urlParts.length - 1]);
-    }
+  ok(body?: any) {
+    return of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
   }
 }
 

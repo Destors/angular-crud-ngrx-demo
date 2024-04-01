@@ -17,7 +17,10 @@ export class ProductsPageComponent implements OnInit {
   ngOnInit(): void {
     this.productFacade.initDispatch();
     this.products$ = this.productFacade.products$.pipe(
-      tap((v) => console.log(v))
+      tap((products: Product[]) => {
+        console.log('products recived from fake BE:');
+        console.log(products);
+      })
     );
   }
 }

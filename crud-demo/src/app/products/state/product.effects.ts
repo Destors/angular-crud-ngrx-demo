@@ -52,7 +52,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
       switchMap(({ product }) =>
-        this.productApiService.deleteProductById(product.id).pipe(
+        this.productApiService.deleteProductById(product).pipe(
           map((products: Product[]) =>
             ProductActions.deleteProductSuccess({ products })
           ),
