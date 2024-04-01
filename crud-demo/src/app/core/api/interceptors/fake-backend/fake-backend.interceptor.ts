@@ -24,7 +24,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     return this.handleRoute(request, next);
   }
 
-  handleRoute(request: HttpRequest<any>, next: HttpHandler) {
+  private handleRoute(request: HttpRequest<any>, next: HttpHandler) {
     const { url, method, body } = request;
     switch (true) {
       case url.endsWith(this.apiUrl) && method === 'GET':
@@ -41,11 +41,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
   }
 
-  getUsers(): Observable<HttpResponse<any>> {
+  private getUsers(): Observable<HttpResponse<any>> {
     return this.ok(this.productsDataBase);
   }
 
-  createProduct(body: any): Observable<HttpResponse<any>> {
+  private createProduct(body: any): Observable<HttpResponse<any>> {
     let newProduct = JSON.parse(JSON.stringify(body));
 
     newProduct.id = this.productsDataBase.length
@@ -57,7 +57,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     return this.ok(this.productsDataBase);
   }
 
-  updateProduct(body: any): Observable<HttpResponse<any>> {
+  private updateProduct(body: any): Observable<HttpResponse<any>> {
     this.productsDataBase = this.productsDataBase.map((product) =>
       product.id === body.id ? body : product
     );
@@ -65,14 +65,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     return this.ok(this.productsDataBase);
   }
 
-  deleteProduct(body: any): Observable<HttpResponse<any>> {
+  private deleteProduct(body: any): Observable<HttpResponse<any>> {
     this.productsDataBase = this.productsDataBase.filter((x) => x.id !== body);
 
     return this.ok(this.productsDataBase);
   }
 
-  ok(body?: any) {
-    return of(new HttpResponse({ status: 200, body })).pipe(delay(500)); // delay observable to simulate server api call
+  private ok(body?: any) {
+    return of(new HttpResponse({ status: 200, body })).pipe(delay(1500));
   }
 }
 
