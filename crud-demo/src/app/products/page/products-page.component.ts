@@ -24,10 +24,11 @@ export class ProductsPageComponent implements OnInit {
     this.productFacade.initDispatch();
     this.products$ = this.productFacade.products$.pipe(
       tap((products: Product[]) => {
-        console.log('Product page async observer...');
+        console.group();
+        console.log('...Product page async observer emitting =>');
         return products.length === 0
           ? console.log('initial state is empty[]')
-          : console.log(products);
+          : console.table(products);
       })
     );
   }
