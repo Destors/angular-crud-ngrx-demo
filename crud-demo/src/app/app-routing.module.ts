@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './ui/layout/layout.component';
+import { productsResolver } from './products/resolver/products.resolver';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
           import('./products/page/products-page.module').then(
             (m) => m.ProductsPageModule
           ),
+        resolve: { productsResolver },
       },
       {
         path: 'auth-page',
