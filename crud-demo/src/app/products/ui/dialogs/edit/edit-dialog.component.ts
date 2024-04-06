@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   ProductDialogMode,
   ProductFields,
+  ProductType,
 } from 'src/app/products/common/product.enum';
 import { Product } from 'src/app/products/common/product.interface';
 import { ProductFacade } from 'src/app/products/state/product.facade';
@@ -22,7 +23,9 @@ import { ProductFacade } from 'src/app/products/state/product.facade';
 export class EditDialogComponent {
   form!: UntypedFormGroup;
   dialogMode: ProductDialogMode;
-  productFields = Object.values(ProductFields);
+  productFieldsArr = Object.values(ProductFields);
+  productFields = ProductFields;
+  productTypesArr = Object.values(ProductType);
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -48,7 +51,10 @@ export class EditDialogComponent {
     this.form = new FormGroup({
       [ProductFields.Title]: new FormControl(null, [Validators.required]),
       [ProductFields.Desctiption]: new FormControl(null, [Validators.required]),
-      [ProductFields.Price]: new FormControl(null, [Validators.required]),
+      [ProductFields.Price]: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+      ]),
       [ProductFields.Type]: new FormControl(null, [Validators.required]),
     });
 

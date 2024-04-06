@@ -3,6 +3,9 @@
     <mat-card-title automation-id="title">
       {{ product.title }}
     </mat-card-title>
+    <mat-card-subtitle automation-id="type">
+      {{ product.type | titlecase }}
+    </mat-card-subtitle>
     <mat-card-subtitle automation-id="price">
       {{ product.price | currency }}
     </mat-card-subtitle>

@@ -1,7 +1,7 @@
 export enum ProductType {
-  device = 'device',
-  book = 'book',
-  shoes = 'shoes',
+  Device = 'device',
+  Book = 'book',
+  Shoes = 'shoes',
 }
 
 export enum ProductFields {

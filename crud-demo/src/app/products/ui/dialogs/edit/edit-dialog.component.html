@@ -4,23 +4,46 @@
     {{ dialogMode | titlecase }} <b>{{ data.product.title }} </b>in store
   </p>
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-    <ng-container *ngFor="let fieldItem of productFields">
-      <mat-label>{{ fieldItem | titlecase }}</mat-label>
-      <mat-form-field class="w-100" appearance="outline">
-        <input
-          matInput
-          [placeholder]="'Add ' + fieldItem"
-          [formControlName]="fieldItem"
-        />
-      </mat-form-field>
+    <ng-container *ngFor="let fieldItem of productFieldsArr">
+      <ng-container [ngSwitch]="fieldItem">
+        <ng-container *ngSwitchCase="productFields.Price">
+          <mat-label>{{ fieldItem | titlecase }}</mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input
+              matInput
+              [placeholder]="'Add ' + fieldItem"
+              [formControlName]="fieldItem"
+              type="number"
+            />
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="productFields.Type">
+          <mat-label>{{ fieldItem | titlecase }}</mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select [formControlName]="fieldItem">
+              <mat-option *ngFor="let type of productTypesArr" [value]="type">
+                {{ type | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+          <mat-label>{{ fieldItem | titlecase }}</mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input
+              matInput
+              [placeholder]="'Add ' + fieldItem"
+              [formControlName]="fieldItem"
+            />
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
     </ng-container>
     <div mat-dialog-actions>
       <button mat-button mat-dialog-close>Close</button>
-      <button
-        mat-raised-button
-        type="submit"
-        [disabled]="form.invalid"
-      >
+      <button mat-raised-button type="submit" [disabled]="form.invalid">
         Submit
       </button>
     </div>

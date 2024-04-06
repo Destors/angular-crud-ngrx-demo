@@ -1,13 +1,16 @@
-<div *ngIf="products$ | async as products" class="products-list">
-  <ng-container *ngIf="products.length; else noProducts">
-    <app-product-card
-      *ngFor="let product of products; trackBy: trackByFn"
-      class="products-list--card"
-      [product]="product"
-    >
-    </app-product-card>
-  </ng-container>
-</div>
+<ng-container *ngIf="products$ | async as products">
+  <p>Products count: {{ products.length }}</p>
+  <div class="products-list">
+    <ng-container *ngIf="products.length; else noProducts">
+      <app-product-card
+        *ngFor="let product of products; trackBy: trackByFn"
+        class="products-list--card"
+        [product]="product"
+      >
+      </app-product-card>
+    </ng-container>
+  </div>
+</ng-container>
 <ng-template #noProducts>
   <p>No products</p>
 </ng-template>

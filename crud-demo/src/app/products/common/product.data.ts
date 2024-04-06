@@ -7,7 +7,7 @@ export const productList: Product[] = [
     id: 1,
     title: 'Apple Iphone 15 pro max',
     price: 2500,
-    type: ProductType.device,
+    type: ProductType.Device,
     desctiption:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
   },
@@ -15,7 +15,7 @@ export const productList: Product[] = [
     id: 2,
     title: 'Hobbit: Unexpected Journey',
     price: 800,
-    type: ProductType.book,
+    type: ProductType.Book,
     desctiption:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
   },
@@ -23,7 +23,7 @@ export const productList: Product[] = [
     id: 3,
     title: 'Nike Air Max',
     price: 700,
-    type: ProductType.shoes,
+    type: ProductType.Shoes,
     desctiption:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat sapiente veritatis omnis mollitia harum placeat quam aspernatur, maxime ea perspiciatis!',
   },

@@ -25,7 +25,7 @@ export class ProductsPageComponent implements OnInit {
     this.products$ = this.productFacade.products$.pipe(
       tap((products: Product[]) => {
         console.group();
-        console.log('...Product page async observer emitting =>');
+        console.log('Product page async observer emitting =>');
         return products.length === 0
           ? console.log('initial state is empty[]')
           : console.table(products);
