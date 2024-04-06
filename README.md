@@ -1,9 +1,13 @@
 Angular 16 + NGRX => CRUD demo.
 
 -Fake BE interceptor, to make it like we have real api http cals and handling for it on NGRX side.
+
 -NX pattern folder architecture.
+
 -Quality console loging to see what hapen.
+
 -Material 16 components and bootstrap 5.0 breakpoints.
+
 -NGRX feature state.
 
 UI example:
