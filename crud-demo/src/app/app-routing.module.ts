@@ -19,6 +19,13 @@ const routes: Routes = [
             (m) => m.ProductsPageModule
           ),
       },
+      {
+        path: 'auth-page',
+        loadComponent: () =>
+          import('./auth/page/auth-page.component').then(
+            (m) => m.AuthPageComponent
+          ),
+      },
     ],
   },
 ];
