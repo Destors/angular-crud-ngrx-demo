@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent } from './ui/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'products-page',
-  },
-  {
-    path: 'products-page',
-    loadChildren: () =>
-      import('./products/page/products-page.module').then(
-        (m) => m.ProductsPageModule
-      ),
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'products-page',
+      },
+      {
+        path: 'products-page',
+        loadChildren: () =>
+          import('./products/page/products-page.module').then(
+            (m) => m.ProductsPageModule
+          ),
+      },
+    ],
   },
 ];
 
