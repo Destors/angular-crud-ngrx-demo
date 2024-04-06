@@ -1,6 +1,11 @@
 <div class="container">
+  <h1>Pessimistic strategy CRUD</h1>
+  <p>Trigger view change detection only when server send a success response</p>
   <section>
-    <p>Is loading flag: {{ isLoading$ | async }}</p>
+    <p>
+      Is loading flag:
+      {{ (isLoading$ | async) ? "Featching..." : "Data loaded" }}
+    </p>
     <app-product-list [products$]="products$"></app-product-list>
   </section>
 </div>

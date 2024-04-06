@@ -1,5 +1,4 @@
 <ng-container *ngIf="products$ | async as products">
-  <p>Products count: {{ products.length }}</p>
   <div class="products-list">
     <ng-container *ngIf="products.length; else noProducts">
       <app-product-card

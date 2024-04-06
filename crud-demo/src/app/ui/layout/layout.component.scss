@@ -1,13 +1,13 @@
 :host {
   display: block;
 }
+
 .sidenav-container {
   width: 250px;
 }
 
 .content-container {
   $header-height: 64px;
-
   padding-top: 20px;
   min-height: calc(100vh - $header-height);
 }
