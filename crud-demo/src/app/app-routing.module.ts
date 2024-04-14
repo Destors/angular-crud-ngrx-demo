@@ -11,13 +11,21 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'products-page',
+        redirectTo: 'products-page-pesimistic',
       },
       {
-        path: 'products-page',
+        path: 'products-page-pesimistic',
         loadChildren: () =>
           import('./products/page/products-page.module').then(
             (m) => m.ProductsPageModule
+          ),
+        resolve: { productsResolver },
+      },
+      {
+        path: 'products-page-optimistic',
+        loadComponent: () =>
+          import('./products-optimistic/page/products-page-opt.component').then(
+            (m) => m.ProductsPageOptComponent
           ),
         resolve: { productsResolver },
       },

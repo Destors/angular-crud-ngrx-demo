@@ -1,12 +1,15 @@
 <mat-nav-list>
   <mat-list-item
-    [routerLink]="['/products-page']"
+    [routerLink]="['/products-page-pesimistic']"
     routerLinkActive="router-link-active"
   >
     <a matListItemTitle>CRUD Basic</a>
     <span>Pessimistic strategy</span>
   </mat-list-item>
-  <mat-list-item disabled>
+  <mat-list-item
+    [routerLink]="['/products-page-optimistic']"
+    routerLinkActive="router-link-active"
+  >
     <a matListItemTitle>CRUD Basic</a>
     <span>Optimistic strategy</span>
   </mat-list-item>
