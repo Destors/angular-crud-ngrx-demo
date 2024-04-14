@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { ProductApiService } from '../api/product-api.service';
 
@@ -20,44 +20,44 @@ export class ProductEffects {
 
   getProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.getProducts),
+      ofType(ProductActions.GetProducts.getProducts),
       switchMap(() => this.productApiService.getProducts()),
       map((products: Product[]) =>
-        ProductActions.getProductsSuccess({ products })
+        ProductActions.GetProducts.getProductsSuccess({ products })
       )
     )
   );
 
   createProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.createProduct),
+      ofType(ProductActions.CreateProduct.createProduct),
       switchMap(({ product }) => this.productApiService.create(product)),
       map((products: Product[]) =>
-        ProductActions.createProductSuccess({ products })
+        ProductActions.CreateProduct.createProductSuccess({ products })
       )
     )
   );
 
   updateproduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.updateProduct),
+      ofType(ProductActions.UpdateProduct.updateProduct),
       switchMap(({ product }) => this.productApiService.updateProduct(product)),
       map((products: Product[]) =>
-        ProductActions.updateProductSuccess({ products })
+        ProductActions.UpdateProduct.updateProductSuccess({ products })
       )
     )
   );
 
   deleteproduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.deleteProduct),
+      ofType(ProductActions.DeleteProduct.deleteProduct),
       switchMap(({ product }) =>
         this.productApiService.deleteProductById(product).pipe(
           map((products: Product[]) =>
-            ProductActions.deleteProductSuccess({ products })
+            ProductActions.DeleteProduct.deleteProductSuccess({ products })
           ),
           catchError((error) =>
-            of(ProductActions.deleteProductFailure({ error }))
+            of(ProductActions.DeleteProduct.deleteProductFailure({ error }))
           )
         )
       )

@@ -23,22 +23,26 @@ export class ProductFacade {
   );
 
   initDispatch(): void {
-    this.store.dispatch(ProductActions.getProducts());
+    this.store.dispatch(ProductActions.GetProducts.getProducts());
   }
 
   createProduct(product: Product): void {
     this.store.dispatch(
-      ProductActions.createProduct({
+      ProductActions.CreateProduct.createProduct({
         product,
       })
     );
   }
 
   updateProduct(product: Product): void {
-    this.store.dispatch(ProductActions.updateProduct({ product }));
+    this.store.dispatch(
+      ProductActions.UpdateProduct.updateProduct({ product })
+    );
   }
 
   deleteProduct(product: Product): void {
-    this.store.dispatch(ProductActions.deleteProduct({ product }));
+    this.store.dispatch(
+      ProductActions.DeleteProduct.deleteProduct({ product })
+    );
   }
 }

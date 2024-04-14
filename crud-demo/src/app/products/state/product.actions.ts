@@ -3,59 +3,67 @@ import { Product } from '../common/product.interface';
 
 const prefix = '[Products]';
 
-export const getProducts = createAction(`${prefix} Get Products`);
+export namespace GetProducts {
+  export const getProducts = createAction(`${prefix} Get Products`);
 
-export const getProductsSuccess = createAction(
-  `${getProducts.type} Success`,
-  props<{
-    products: Product[];
-  }>()
-);
+  export const getProductsSuccess = createAction(
+    `${getProducts.type} Success`,
+    props<{
+      products: Product[];
+    }>()
+  );
+}
 
-export const createProduct = createAction(
-  `${prefix} Create Product`,
-  props<{
-    product: Product;
-  }>()
-);
+export namespace CreateProduct {
+  export const createProduct = createAction(
+    `${prefix} Create Product`,
+    props<{
+      product: Product;
+    }>()
+  );
 
-export const createProductSuccess = createAction(
-  `${createProduct.type} Success`,
-  props<{
-    products: Product[];
-  }>()
-);
+  export const createProductSuccess = createAction(
+    `${createProduct.type} Success`,
+    props<{
+      products: Product[];
+    }>()
+  );
+}
 
-export const updateProduct = createAction(
-  `${prefix} Update Product`,
-  props<{
-    product: Product;
-  }>()
-);
+export namespace UpdateProduct {
+  export const updateProduct = createAction(
+    `${prefix} Update Product`,
+    props<{
+      product: Product;
+    }>()
+  );
 
-export const updateProductSuccess = createAction(
-  `${updateProduct.type} Success`,
-  props<{
-    products: Product[];
-  }>()
-);
+  export const updateProductSuccess = createAction(
+    `${updateProduct.type} Success`,
+    props<{
+      products: Product[];
+    }>()
+  );
+}
 
-export const deleteProduct = createAction(
-  `${prefix} Delete Product`,
-  props<{
-    product: Product;
-  }>()
-);
-export const deleteProductSuccess = createAction(
-  `${deleteProduct.type} Success`,
-  props<{
-    products: Product[];
-  }>()
-);
+export namespace DeleteProduct {
+  export const deleteProduct = createAction(
+    `${prefix} Delete Product`,
+    props<{
+      product: Product;
+    }>()
+  );
+  export const deleteProductSuccess = createAction(
+    `${deleteProduct.type} Success`,
+    props<{
+      products: Product[];
+    }>()
+  );
 
-export const deleteProductFailure = createAction(
-  `${deleteProduct.type} Failure`,
-  props<{
-    error: Error | any;
-  }>()
-);
+  export const deleteProductFailure = createAction(
+    `${deleteProduct.type} Failure`,
+    props<{
+      error: Error | any;
+    }>()
+  );
+}
