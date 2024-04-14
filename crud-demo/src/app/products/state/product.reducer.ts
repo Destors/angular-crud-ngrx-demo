@@ -11,68 +11,59 @@ export const initialProductsState: ProductState = {
 
 const reducer = createReducer<ProductState>(
   initialProductsState,
-  on(ProductActions.GetProducts.getProducts, (state) => {
+  on(ProductActions.GetProducts.init, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(ProductActions.GetProducts.getProductsSuccess, (state, { products }) => {
+  on(ProductActions.GetProducts.success, (state, { products }) => {
     return {
       ...state,
       isLoading: false,
       products,
     };
   }),
-  on(ProductActions.CreateProduct.createProduct, (state) => {
+  on(ProductActions.CreateProduct.init, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(
-    ProductActions.CreateProduct.createProductSuccess,
-    (state, { products }) => {
-      return {
-        ...state,
-        isLoading: false,
-        products,
-      };
-    }
-  ),
-  on(ProductActions.UpdateProduct.updateProduct, (state) => {
+  on(ProductActions.CreateProduct.success, (state, { products }) => {
+    return {
+      ...state,
+      isLoading: false,
+      products,
+    };
+  }),
+  on(ProductActions.UpdateProduct.init, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(
-    ProductActions.UpdateProduct.updateProductSuccess,
-    (state, { products }) => {
-      return {
-        ...state,
-        isLoading: false,
-        products,
-      };
-    }
-  ),
-  on(ProductActions.DeleteProduct.deleteProduct, (state) => {
+  on(ProductActions.UpdateProduct.success, (state, { products }) => {
+    return {
+      ...state,
+      isLoading: false,
+      products,
+    };
+  }),
+  on(ProductActions.DeleteProduct.init, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(
-    ProductActions.DeleteProduct.deleteProductSuccess,
-    (state, { products }) => {
-      return {
-        ...state,
-        isLoading: false,
-        products: products,
-      };
-    }
-  ),
-  on(ProductActions.DeleteProduct.deleteProductFailure, (state, { error }) => {
+  on(ProductActions.DeleteProduct.success, (state, { products }) => {
+    return {
+      ...state,
+      isLoading: false,
+      products: products,
+    };
+  }),
+  on(ProductActions.DeleteProduct.failure, (state, { error }) => {
     return {
       ...state,
       isLoading: false,

@@ -4,10 +4,10 @@ import { Product } from '../common/product.interface';
 const prefix = '[Products]';
 
 export namespace GetProducts {
-  export const getProducts = createAction(`${prefix} Get Products`);
+  export const init = createAction(`${prefix} Get Products`);
 
-  export const getProductsSuccess = createAction(
-    `${getProducts.type} Success`,
+  export const success = createAction(
+    `${init.type} Success`,
     props<{
       products: Product[];
     }>()
@@ -15,15 +15,15 @@ export namespace GetProducts {
 }
 
 export namespace CreateProduct {
-  export const createProduct = createAction(
+  export const init = createAction(
     `${prefix} Create Product`,
     props<{
       product: Product;
     }>()
   );
 
-  export const createProductSuccess = createAction(
-    `${createProduct.type} Success`,
+  export const success = createAction(
+    `${init.type} Success`,
     props<{
       products: Product[];
     }>()
@@ -31,15 +31,15 @@ export namespace CreateProduct {
 }
 
 export namespace UpdateProduct {
-  export const updateProduct = createAction(
+  export const init = createAction(
     `${prefix} Update Product`,
     props<{
       product: Product;
     }>()
   );
 
-  export const updateProductSuccess = createAction(
-    `${updateProduct.type} Success`,
+  export const success = createAction(
+    `${init.type} Success`,
     props<{
       products: Product[];
     }>()
@@ -47,21 +47,21 @@ export namespace UpdateProduct {
 }
 
 export namespace DeleteProduct {
-  export const deleteProduct = createAction(
+  export const init = createAction(
     `${prefix} Delete Product`,
     props<{
       product: Product;
     }>()
   );
-  export const deleteProductSuccess = createAction(
-    `${deleteProduct.type} Success`,
+  export const success = createAction(
+    `${init.type} Success`,
     props<{
       products: Product[];
     }>()
   );
 
-  export const deleteProductFailure = createAction(
-    `${deleteProduct.type} Failure`,
+  export const failure = createAction(
+    `${init.type} Failure`,
     props<{
       error: Error | any;
     }>()

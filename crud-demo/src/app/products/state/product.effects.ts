@@ -20,44 +20,44 @@ export class ProductEffects {
 
   getProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.GetProducts.getProducts),
+      ofType(ProductActions.GetProducts.init),
       switchMap(() => this.productApiService.getProducts()),
       map((products: Product[]) =>
-        ProductActions.GetProducts.getProductsSuccess({ products })
+        ProductActions.GetProducts.success({ products })
       )
     )
   );
 
   createProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.CreateProduct.createProduct),
+      ofType(ProductActions.CreateProduct.init),
       switchMap(({ product }) => this.productApiService.create(product)),
       map((products: Product[]) =>
-        ProductActions.CreateProduct.createProductSuccess({ products })
+        ProductActions.CreateProduct.success({ products })
       )
     )
   );
 
   updateproduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.UpdateProduct.updateProduct),
+      ofType(ProductActions.UpdateProduct.init),
       switchMap(({ product }) => this.productApiService.updateProduct(product)),
       map((products: Product[]) =>
-        ProductActions.UpdateProduct.updateProductSuccess({ products })
+        ProductActions.UpdateProduct.success({ products })
       )
     )
   );
 
   deleteproduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.DeleteProduct.deleteProduct),
+      ofType(ProductActions.DeleteProduct.init),
       switchMap(({ product }) =>
         this.productApiService.deleteProductById(product).pipe(
           map((products: Product[]) =>
-            ProductActions.DeleteProduct.deleteProductSuccess({ products })
+            ProductActions.DeleteProduct.success({ products })
           ),
           catchError((error) =>
-            of(ProductActions.DeleteProduct.deleteProductFailure({ error }))
+            of(ProductActions.DeleteProduct.failure({ error }))
           )
         )
       )
