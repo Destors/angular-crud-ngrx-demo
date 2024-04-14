@@ -7,7 +7,7 @@ import {
   HttpInterceptor,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { productList } from 'src/app/products/common/product.data';
 import { Product } from 'src/app/products/common/product.interface';
@@ -73,6 +73,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
   private ok(body?: any) {
     return of(new HttpResponse({ status: 200, body })).pipe(delay(1500));
+  }
+
+  private error(message: string) {
+    return throwError(() => ({ error: { message } })).pipe(delay(500));
   }
 }
 

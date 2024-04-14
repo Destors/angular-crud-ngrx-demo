@@ -56,6 +56,6 @@ export const deleteProductSuccess = createAction(
 export const deleteProductFailure = createAction(
   `${deleteProduct.type} Failure`,
   props<{
-    products: Product[];
+    error: Error | any;
   }>()
 );

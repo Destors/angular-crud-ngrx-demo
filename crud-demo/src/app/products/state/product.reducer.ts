@@ -6,6 +6,7 @@ import * as ProductActions from './product.actions';
 export const initialProductsState: ProductState = {
   products: [],
   isLoading: false,
+  error: null,
 };
 
 const reducer = createReducer<ProductState>(
@@ -60,6 +61,13 @@ const reducer = createReducer<ProductState>(
       ...state,
       isLoading: false,
       products: products,
+    };
+  }),
+  on(ProductActions.deleteProductFailure, (state, { error }) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: error,
     };
   })
 );

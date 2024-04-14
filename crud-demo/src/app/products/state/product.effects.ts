@@ -6,9 +6,9 @@ import { ProductApiService } from '../api/product-api.service';
 
 import * as ProductActions from './product.actions';
 
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Product } from '../common/product.interface';
-import { throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ProductEffects {
@@ -56,7 +56,9 @@ export class ProductEffects {
           map((products: Product[]) =>
             ProductActions.deleteProductSuccess({ products })
           ),
-          catchError((e) => throwError(e))
+          catchError((error) =>
+            of(ProductActions.deleteProductFailure({ error }))
+          )
         )
       )
     )
