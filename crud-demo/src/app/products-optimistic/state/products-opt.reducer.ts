@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ProductsOptActions } from './products-opt.actions';
+import { ProductsApiActions } from './products-opt.actions';
 import { ProductState } from 'src/app/products/common/product.interface';
 import { initialProductsState } from 'src/app/products/state/product.reducer';
 
@@ -7,15 +7,15 @@ export const productsOptFeatureKey = 'productsOptimistic';
 
 export const reducer = createReducer(
   initialProductsState,
-  on(ProductsOptActions.loadProductsOpts, (state) => state),
-  on(ProductsOptActions.loadProductsOptsSuccess, (state, { products }) => {
+  on(ProductsApiActions.GET.loadProductsOpts, (state) => state),
+  on(ProductsApiActions.GET.loadProductsOptsSuccess, (state, { products }) => {
     return {
       ...state,
       isLoading: false,
       products,
     };
   }),
-  on(ProductsOptActions.loadProductsOptsFailure, (state, action) => state)
+  on(ProductsApiActions.GET.loadProductsOptsFailure, (state, action) => state)
 );
 
 export function productsOptReducer(

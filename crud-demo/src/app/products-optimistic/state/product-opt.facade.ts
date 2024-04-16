@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
-import { ProductsOptActions } from './products-opt.actions';
+import { ProductsApiActions } from './products-opt.actions';
 import { selectProductsOptList } from './products-opt.selectors';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/products/common/product.interface';
@@ -18,6 +18,6 @@ export class ProductOptFacade {
   );
 
   initDispatch(): void {
-    this.store.dispatch(ProductsOptActions.loadProductsOpts());
+    this.store.dispatch(ProductsApiActions.GET.loadProductsOpts());
   }
 }

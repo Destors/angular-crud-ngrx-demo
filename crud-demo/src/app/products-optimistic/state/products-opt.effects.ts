@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
-import { ProductsOptActions } from './products-opt.actions';
+import { map, concatMap } from 'rxjs/operators';
+import { ProductsApiActions } from './products-opt.actions';
 import { ProductApiService } from 'src/app/products/api/product-api.service';
 import { Product } from 'src/app/products/common/product.interface';
 
@@ -15,10 +14,10 @@ export class ProductsOptEffects {
 
   loadProductsOpts$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ProductsOptActions.loadProductsOpts),
+      ofType(ProductsApiActions.GET.loadProductsOpts),
       concatMap(() => this.productApiService.getProducts()),
       map((products: Product[]) =>
-        ProductsOptActions.loadProductsOptsSuccess({ products })
+        ProductsApiActions.GET.loadProductsOptsSuccess({ products })
       )
     );
   });
