@@ -1,11 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductFacade } from '../state/product.facade';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product } from '../common/product.interface';
 
 @Component({
@@ -13,6 +8,7 @@ import { Product } from '../common/product.interface';
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class ProductsPageComponent implements OnInit {
   products$!: Observable<Product[]>;

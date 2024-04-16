@@ -3,6 +3,8 @@ import { ProductState } from '../common/product.interface';
 
 import * as ProductActions from './product.actions';
 
+export const productsFeatureKey = 'productsPessimistic';
+
 export const initialProductsState: ProductState = {
   products: [],
   isLoading: false,

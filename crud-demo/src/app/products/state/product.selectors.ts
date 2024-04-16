@@ -6,7 +6,7 @@ export const selectProductState =
 
 export const selectProductsList = createSelector(
   selectProductState,
-  (state) => state.products
+  (state) => state?.products
 );
 
 export const selectProductIsLoading = createSelector(

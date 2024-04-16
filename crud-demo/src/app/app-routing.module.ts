@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { productsResolver } from './products/resolver/products.resolver';
+import { ProductFacade } from './products/state/product.facade';
+import { productsOptResolver } from './products-optimistic/resolver/products-opt.resolver';
+import { ProductOptFacade } from './products-optimistic/state/product-opt.facade';
 
 const routes: Routes = [
   {
@@ -27,7 +30,7 @@ const routes: Routes = [
           import('./products-optimistic/page/products-page-opt.component').then(
             (m) => m.ProductsPageOptComponent
           ),
-        resolve: { productsResolver },
+        resolve: { productsOptResolver },
       },
       {
         path: 'auth-page',
@@ -42,6 +45,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [ProductFacade, ProductOptFacade],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

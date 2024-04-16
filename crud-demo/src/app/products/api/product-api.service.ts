@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, asyncScheduler, scheduled, take, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Product } from '../common/product.interface';
 import { HttpClient } from '@angular/common/http';
 

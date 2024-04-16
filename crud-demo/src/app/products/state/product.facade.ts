@@ -7,7 +7,7 @@ import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product.interface';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ProductFacade {
   constructor(
     private readonly actions$: Actions,
