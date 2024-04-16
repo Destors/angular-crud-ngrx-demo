@@ -16,7 +16,7 @@ export class ProductsOptEffects {
   loadProductsOpts$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ProductsOptActions.loadProductsOpts),
-      switchMap(() => this.productApiService.getProducts()),
+      concatMap(() => this.productApiService.getProducts()),
       map((products: Product[]) =>
         ProductsOptActions.loadProductsOptsSuccess({ products })
       )

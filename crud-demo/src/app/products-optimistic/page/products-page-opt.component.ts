@@ -12,7 +12,7 @@ import { ProductsOptStateModule } from '../state/products-opt-state.module';
   templateUrl: './products-page-opt.component.html',
   styleUrls: ['./products-page-opt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ProductsTableOptComponent, ProductsOptStateModule],
+  imports: [CommonModule, ProductsTableOptComponent],
   providers: [ProductOptFacade],
 })
 export class ProductsPageOptComponent implements OnInit {

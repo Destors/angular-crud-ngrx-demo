@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { fakeBackendProvider } from './core/api/interceptors/fake-backend/fake-backend.interceptor';
 import { ProductsOptStateModule } from './products-optimistic/state/products-opt-state.module';
+import { ProductsStateModule } from './products/state/products-state.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,9 @@ import { ProductsOptStateModule } from './products-optimistic/state/products-opt
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule, ProductsOptStateModule,
+    HttpClientModule,
+    ProductsOptStateModule,
+    ProductsStateModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
